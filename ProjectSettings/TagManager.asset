@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    uniqueID: 1424372329
+    locked: 0
+  - name: Plant
+    uniqueID: 3410863447
+    locked: 0
+  - name: Sun
+    uniqueID: 2918779819
+    locked: 0
