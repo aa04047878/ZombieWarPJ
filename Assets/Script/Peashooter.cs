@@ -19,6 +19,11 @@ public class Peashooter : MonoBehaviour
 
     public Transform bulletPos;
     // Start is called before the first frame update
+    private void OnEnable()
+    {
+        bulletPos = transform.Find("BulletPos");
+    }
+
     void Start()
     {
         
@@ -32,7 +37,9 @@ public class Peashooter : MonoBehaviour
         {
             timer = 0;
             //生成子彈
-            Instantiate(peaBulletPrefab, bulletPos.position, Quaternion.identity);            
+            GameObject curBullet =  Instantiate(peaBulletPrefab, bulletPos.position, Quaternion.identity);
+            ///設定子彈的父物件
+            //curBullet.transform.parent = bulletPos;
         }
     }
 }

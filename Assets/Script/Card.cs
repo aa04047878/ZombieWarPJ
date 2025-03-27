@@ -2,18 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Card : MonoBehaviour
+
+public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    private RectTransform card;
+    /// <summary>
+    /// 卡片的預置物
+    /// </summary>
+    public GameObject objectprefab;
+    /// <summary>
+    /// 生成出來的卡片物件
+    /// </summary>
+    public GameObject curGameObject;
     /// <summary>
     /// 變暗背景(冷卻中的圖示)
     /// </summary>
-    public GameObject darkBg;
+    private GameObject darkBg;
     /// <summary>
     /// 進度條
     /// </summary>
-    public GameObject progressBar;
+    private GameObject progressBar;
 
     public int useSun;
     public float waitTime;
@@ -23,6 +34,7 @@ public class Card : MonoBehaviour
     {
         darkBg = transform.Find("DarkBg").gameObject;
         progressBar = transform.Find("ProgressBar").gameObject;
+        card = GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -61,4 +73,63 @@ public class Card : MonoBehaviour
             darkBg.SetActive(true);
         }
     }
+
+    public void OnBeginDrag(PointerEventData Data)
+    {
+        //開始拖曳時執行(滑鼠點下的那一瞬間，點擊此物體)
+        Debug.Log("開始拖曳時執行(滑鼠點下的那一瞬間)" + Data.ToString());
+
+        curGameObject = Instantiate(objectprefab);
+    }
+
+    public void OnDrag(PointerEventData Data)
+    {
+        //正在拖曳時執行(滑鼠按住不放)
+        Debug.Log("正在拖曳時執行(滑鼠按住不放)");
+        if (curGameObject == null)
+            return;
+        
+        // 獲取滑鼠在螢幕上的位置
+        Vector3 screenPosition = Input.mousePosition;
+
+        // 如果是 3D 場景，必須提供正確的 Z 深度
+        screenPosition.z = 10f; // 設置深度（距離攝影機的距離）
+
+        // 將螢幕座標轉換為世界座標
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+
+        curGameObject.transform.position = worldPosition;
+    }
+
+    public void OnEndDrag(PointerEventData Data)
+    {
+        //結束拖曳時執行(滑鼠放開時執行)
+        Debug.Log("結束拖曳時執行(滑鼠放開時執行)");
+        //檢查滑鼠位置的世界座標(curGameObject的位置)是否有碰撞體
+        Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        foreach (var collider in colliders)
+        {
+            //屬標碰到地板，且地板上沒有其他物件
+            if (collider.tag == "Land" && collider.transform.childCount == 0)
+            {
+                Debug.Log("碰撞到的物件名稱：" + collider.name);
+                //碰撞到地板，執行放置卡片
+                curGameObject.transform.position = collider.transform.position;
+                //將卡片設定為地板的子物件
+                curGameObject.transform.parent = collider.transform;
+                //清空curGameObject
+                curGameObject = null;
+                break;
+            }
+            else
+            {
+
+                //沒有碰撞到地板，執行銷毀卡片
+                Destroy(curGameObject);
+                curGameObject = null;
+            }
+        }
+    }
+
+    
 }
