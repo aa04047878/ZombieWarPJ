@@ -18,6 +18,14 @@ public class Peashooter : MonoBehaviour
     public GameObject peaBulletPrefab;
 
     public Transform bulletPos;
+    /// <summary>
+    /// 總血量
+    /// </summary>
+    public float health;
+    /// <summary>
+    /// 當前血量
+    /// </summary>
+    private float currentHealth;
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -26,7 +34,8 @@ public class Peashooter : MonoBehaviour
 
     void Start()
     {
-        
+        health = 100;
+        currentHealth = health;
     }
 
     // Update is called once per frame
@@ -41,5 +50,21 @@ public class Peashooter : MonoBehaviour
             ///設定子彈的父物件
             //curBullet.transform.parent = bulletPos;
         }
+    }
+
+    /// <summary>
+    /// 改變血量
+    /// </summary>
+    /// <param name="num"></param>
+    public float ChangeHealth(float num)
+    {
+        //改變血量後，當前血量介於0 ~ 總血量之間;
+        currentHealth = Mathf.Clamp(currentHealth + num, 0, health);
+        Debug.Log($"豌豆射手血量 : {currentHealth}");
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+        return currentHealth;
     }
 }

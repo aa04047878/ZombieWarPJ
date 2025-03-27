@@ -109,25 +109,30 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         foreach (var collider in colliders)
         {
-            //屬標碰到地板，且地板上沒有其他物件
-            if (collider.tag == "Land" && collider.transform.childCount == 0)
+            
+            //屬標碰到的碰撞體有地板
+            if (collider.tag == "Land")
             {
-                Debug.Log("碰撞到的物件名稱：" + collider.name);
-                //碰撞到地板，執行放置卡片
-                curGameObject.transform.position = collider.transform.position;
-                //將卡片設定為地板的子物件
-                curGameObject.transform.parent = collider.transform;
-                //清空curGameObject
-                curGameObject = null;
-                break;
+                //且地板上沒有其他物件
+                if (collider.transform.childCount == 0)
+                {
+                    Debug.Log("碰撞到的物件名稱：" + collider.name);
+                    //執行放置卡片
+                    curGameObject.transform.position = collider.transform.position;
+                    //將卡片設定為地板的子物件
+                    curGameObject.transform.parent = collider.transform;
+                    //清空curGameObject
+                    curGameObject = null;
+                    break;
+                }
+                else
+                {
+                    //沒有碰撞到地板，執行銷毀卡片
+                    Destroy(curGameObject);
+                    curGameObject = null;
+                }
             }
-            else
-            {
 
-                //沒有碰撞到地板，執行銷毀卡片
-                Destroy(curGameObject);
-                curGameObject = null;
-            }
         }
     }
 

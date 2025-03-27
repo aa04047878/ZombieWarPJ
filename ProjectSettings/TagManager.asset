@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Lang
   - Land
+  - Plant
+  - Zombie
   layers:
   - Default
   - TransparentFX
