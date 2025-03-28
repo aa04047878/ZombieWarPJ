@@ -25,7 +25,30 @@ public class ZombieNormal : MonoBehaviour
     /// 傷害計時器
     /// </summary>
     private float damageTimer;
-
+    /// <summary>
+    /// 血量
+    /// </summary>
+    public float health;
+    /// <summary>
+    /// 當前血量
+    /// </summary>
+    private float currentHealth;
+    /// <summary>
+    /// 頭的物件
+    /// </summary>
+    private GameObject head;
+    /// <summary>
+    /// 受傷到一定程度
+    /// </summary>
+    private bool lostHead;
+    /// <summary>
+    /// 是否死亡
+    /// </summary>
+    private bool isDie;
+    /// <summary>
+    /// 頭落下時的血量條件
+    /// </summary>
+    private float lostHeadHealth;
     private Animator ani;
     private const string walk = "Walk";
     // Start is called before the first frame update
@@ -35,11 +58,19 @@ public class ZombieNormal : MonoBehaviour
         direction = Vector3.left;
         ani = GetComponent<Animator>();
         damageTimer = 0;
+        health = 100;
+        currentHealth = health;
+        lostHeadHealth = 50;
+        head = transform.Find("Head").gameObject;
+        isDie = false;
+        lostHead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDie)
+            return;
         Move();
     }
 
@@ -53,6 +84,10 @@ public class ZombieNormal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D hit) //hit為碰到的對方
     {
+        //死亡不能攻擊
+        if (isDie)
+            return;
+
         if (hit.tag == "Plant")
         {
             //碰到植物就停止移動
@@ -65,6 +100,9 @@ public class ZombieNormal : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D hit)
     {
+        //死亡不能攻擊
+        if (isDie)
+            return;
 
         if (hit.tag == "Plant")
         {
@@ -94,5 +132,41 @@ public class ZombieNormal : MonoBehaviour
             isWalk = true;
             ani?.SetBool(walk, isWalk);
         }
+    }
+
+    /// <summary>
+    /// 改變血量
+    /// </summary>
+    /// <param name="num"></param>
+    public void ChangeHealth(float num)
+    {
+        Debug.Log($"受到傷害 : {num}");
+        //改變血量後，當前血量介於0 ~ 總血量之間;
+        currentHealth = Mathf.Clamp(currentHealth + num, 0, health);
+        if (currentHealth < lostHeadHealth)
+        {
+            if (!lostHead)
+            {
+                lostHead = true;
+                ani.SetBool("LostHead", true);
+                head.SetActive(true);
+                head.transform.GetComponent<Animator>().SetBool("LostHead", true);
+            }
+        }
+
+        if (currentHealth <= 0)
+        {
+            ani.SetTrigger("Die");
+            isDie = true;
+        }
+    }
+
+    /// <summary>
+    /// 死亡動畫結束(動畫事件)
+    /// </summary>
+    public void DieAinOver()
+    {
+        ani.enabled = false;
+        Destroy(gameObject);
     }
 }
