@@ -12,7 +12,8 @@ public class Note : MonoBehaviour
         在 Unity 中，OverlapPointAll是物理引擎的一部分，屬於Physics2D類。它的主要功能是檢查 2D 空間中的某個點是否與多個碰撞器重疊，並返回所有重疊的碰撞器。
     3. 碰撞trigger :
         OnTriggerEnter2D() 、 OnTriggerStay2D() 、 OnTriggerExit2D()
-
+    4. OnMouseDown() :
+        當滑鼠按下時，觸發此事件
     */
 
     /*

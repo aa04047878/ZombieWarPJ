@@ -25,7 +25,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     /// 進度條
     /// </summary>
     private GameObject progressBar;
-
+    /// <summary>
+    /// 此卡片需要的陽光數量
+    /// </summary>
     public int useSun;
     public float waitTime;
     private float timer;
@@ -61,8 +63,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     /// </summary>
     private void UpdateDarkBg()
     {
-        //檢查是否冷卻完成
-        if (progressBar.GetComponent<Image>().fillAmount == 0)
+        //檢查是否冷卻完成 && 陽光數量足夠
+        if (progressBar.GetComponent<Image>().fillAmount == 0 && GameManager.instance.sunNum >= useSun)
         {
             //冷卻完成，隱藏暗背景
             darkBg.SetActive(false);
@@ -76,6 +78,11 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
     public void OnBeginDrag(PointerEventData Data)
     {
+        //顯示暗背景，代表不能拖曳(種植條件不足)
+        if (darkBg.activeSelf)
+        {
+            return;
+        }
         //開始拖曳時執行(滑鼠點下的那一瞬間，點擊此物體)
         Debug.Log("開始拖曳時執行(滑鼠點下的那一瞬間)" + Data.ToString());
 
@@ -83,7 +90,13 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     }
 
     public void OnDrag(PointerEventData Data)
-    {
+    {   
+        //顯示暗背景，代表不能拖曳(種植條件不足)
+        if (darkBg.activeSelf)
+        {
+            return;
+        }
+
         //正在拖曳時執行(滑鼠按住不放)
         Debug.Log("正在拖曳時執行(滑鼠按住不放)");
         if (curGameObject == null)
@@ -97,12 +110,18 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
         // 將螢幕座標轉換為世界座標
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-
+        //拖曳植物
         curGameObject.transform.position = worldPosition;
+        
     }
 
     public void OnEndDrag(PointerEventData Data)
     {
+        //顯示暗背景，代表不能拖曳(種植條件不足)
+        if (darkBg.activeSelf)
+        {
+            return;
+        }
         //結束拖曳時執行(滑鼠放開時執行)
         Debug.Log("結束拖曳時執行(滑鼠放開時執行)");
         //檢查滑鼠位置的世界座標(curGameObject的位置)是否有碰撞體
@@ -121,6 +140,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                     curGameObject.transform.position = collider.transform.position;
                     //將卡片設定為地板的子物件
                     curGameObject.transform.parent = collider.transform;
+                    //消耗陽光
+                    GameManager.instance.ChangeSunNum(-useSun);
                     //清空curGameObject
                     curGameObject = null;
                     break;
