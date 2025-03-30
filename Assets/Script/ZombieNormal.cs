@@ -111,8 +111,9 @@ public class ZombieNormal : MonoBehaviour
             damageTimer += Time.deltaTime;
             if (damageTimer >= damageInterval)
             {
-                Peashooter peashooter = hit.transform.GetComponent<Peashooter>();
-                float newHealth = peashooter.ChangeHealth(-damage);
+                //§ðÀ»´Óª«
+                Plant plant = hit.transform.GetComponent<Plant>();
+                float newHealth = plant.ChangeHealth(-damage);
                 if (newHealth <= 0)
                 {
                     isWalk = true;

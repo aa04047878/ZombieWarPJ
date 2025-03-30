@@ -138,10 +138,15 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                     Debug.Log("碰撞到的物件名稱：" + collider.name);
                     //執行放置卡片
                     curGameObject.transform.position = collider.transform.position;
+                    //種植完成後開始啟動植物
+                    curGameObject.GetComponent<Plant>().SetPlantStart();
                     //將卡片設定為地板的子物件
                     curGameObject.transform.parent = collider.transform;
                     //消耗陽光
                     GameManager.instance.ChangeSunNum(-useSun);
+                    //重置計時器
+                    timer = 0;
+                    darkBg.SetActive(true);
                     //清空curGameObject
                     curGameObject = null;
                     break;

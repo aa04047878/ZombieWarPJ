@@ -28,13 +28,13 @@ public class Sun : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
-    {
-        //方滑鼠點擊此物件，就會執行(一次)
+    //private void OnMouseDown()
+    //{
+    //    //方滑鼠點擊此物件，就會執行(一次)
 
-        //改變太陽數量
-        GameManager.instance.ChangeSunNum(25);
-        //點擊完後，太陽消失
-        Destroy(gameObject);
-    }
+    //    //改變太陽數量
+    //    GameManager.instance.ChangeSunNum(25);
+    //    //點擊完後，太陽消失
+    //    Destroy(gameObject);
+    //}
 }

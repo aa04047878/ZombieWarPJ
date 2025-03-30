@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SunFlower : MonoBehaviour
+public class SunFlower : Plant
 {
-    private Animator ani;
     /// <summary>
     /// 生成太陽的準備時間
     /// </summary>
@@ -17,15 +16,21 @@ public class SunFlower : MonoBehaviour
     public GameObject sunPrefab;
     private int sunNum;
     // Start is called before the first frame update
-    void Start()
+    override protected void Start()
     {
-        ani = GetComponent<Animator>();
+        base.Start();
         timer = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    override protected void Update()
     {
+        base.Update();
+        if (!start)
+        {
+            return;
+        }
+
         timer += Time.deltaTime;
         if (timer >= readyTime)
         {
@@ -34,7 +39,7 @@ public class SunFlower : MonoBehaviour
     }
 
     /// <summary>
-    /// 生成太陽結束
+    /// 生成太陽結束(動畫事件)
     /// </summary>
     public void SunFlowerOver()
     {
