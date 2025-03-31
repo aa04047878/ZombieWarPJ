@@ -114,6 +114,7 @@ public class ZombieNormal : MonoBehaviour
                 //攻擊植物
                 Plant plant = hit.transform.GetComponent<Plant>();
                 float newHealth = plant.ChangeHealth(-damage);
+                Debug.Log($"{hit.name}的當前血量 : {newHealth}");
                 if (newHealth <= 0)
                 {
                     isWalk = true;

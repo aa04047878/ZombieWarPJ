@@ -19,7 +19,6 @@ public class Plant : MonoBehaviour
     protected virtual void Start()
     {
         start = false;
-        health = 100;
         currentHealth = health;
         ani = GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
@@ -38,7 +37,7 @@ public class Plant : MonoBehaviour
     /// 改變血量
     /// </summary>
     /// <param name="num"></param>
-    public float ChangeHealth(float num)
+    public virtual float ChangeHealth(float num)
     {
         //改變血量後，當前血量介於0 ~ 總血量之間;
         currentHealth = Mathf.Clamp(currentHealth + num, 0, health);
