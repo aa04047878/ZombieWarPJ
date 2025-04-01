@@ -60,7 +60,7 @@ public class Startup
         AssetDatabase.CreateAsset(levelData, "Assets/Resources/" + assetName + ".asset");
         //保存資產變更
         AssetDatabase.SaveAssets();
-        // 刷新資產數據庫，讓變更即時反映在編輯器中
+        // 刷新資產數據庫，讓變更即時反映在編輯器中(覆蓋原本資料)
         AssetDatabase.Refresh();
         
     }

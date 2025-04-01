@@ -169,6 +169,7 @@ public class ZombieNormal : MonoBehaviour
     public void DieAinOver()
     {
         ani.enabled = false;
+        GameManager.instance.ZombieDie(gameObject);
         Destroy(gameObject);
     }
 }
