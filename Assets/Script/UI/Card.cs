@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -128,7 +129,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         foreach (var collider in colliders)
         {
-            
             //屬標碰到的碰撞體有地板
             if (collider.tag == "Land")
             {
@@ -153,12 +153,28 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
                 else
                 {
-                    //沒有碰撞到地板，執行銷毀卡片
+                    //地板上已有其他物件，執行銷毀卡片
+                    Debug.Log("地板上已有其他物件，刪除卡片");
                     Destroy(curGameObject);
-                    curGameObject = null;
+                    //curGameObject = null;
                 }
             }
+            else
+            {
+                //沒有碰撞到地板，執行銷毀卡片
+                Debug.Log("沒有碰撞Tag為Land，刪除卡片");
+                Destroy(curGameObject);
+                //curGameObject = null;
+            }
 
+        }
+
+        //什麼都沒碰到，執行銷毀卡片
+        if (colliders.Length == 0)
+        {
+            Debug.Log("什麼都沒碰到，刪除卡片");
+            Destroy(curGameObject);
+            //curGameObject = null;
         }
     }
 

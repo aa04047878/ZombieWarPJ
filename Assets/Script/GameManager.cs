@@ -29,22 +29,23 @@ public class GameManager : MonoBehaviour
     public float createZombieTime;
     private int zOrderIndex;
     /// <summary>
-    /// 當前波次殭屍列表
+    /// 當前波次剩餘殭屍數量
     /// </summary>
-    private List<GameObject> curProgressZombieList;
+    public List<GameObject> curProgressZombieList;
     #endregion
 
     #region 關卡相關
     public LevelData levelData;
+    public LevelInfo levelInfo;
     private bool gameStart;
     /// <summary>
-    /// 關卡
+    /// 當前關卡
     /// </summary>
-    private int curLevelId;
+    public int curLevelId;
     /// <summary>
-    /// 波次
+    /// 當前波次
     /// </summary>
-    private int curProgressId;
+    public int curProgressId;
     #endregion
 
 
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
         curLevelId = 1;
         curProgressId = 1;
         StartCoroutine(CoLoadTable());
+        InvokeRepeating("CreateSunDown", 3, 3);
     }
 
     // Update is called once per frame
@@ -116,6 +118,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        //創造殭屍
         for (int i = 0; i < levelData.levelDataList.Count; i++)
         {
             LevelItem levelItem = levelData.levelDataList[i];
@@ -172,11 +175,16 @@ public class GameManager : MonoBehaviour
 
     public void ZombieDie(GameObject gameObject)
     {
+        //殭屍死後，減少當前殭屍數量
         if (curProgressZombieList.Contains(gameObject))
         {
             curProgressZombieList.Remove(gameObject);
         }
 
+        // 殭屍死後，更新進度條介面
+        UIManager.instance.UpdateProgressPanel();
+
+        //當前殭屍都死了，則進入下一波
         if (curProgressZombieList.Count == 0)
         {
             //下一波
@@ -208,21 +216,50 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 太陽落下(start有調用)
+    /// </summary>
+    public void CreateSunDown()
+    {
+        //讀取螢幕左下角和右上角的座標
+        Vector3 leftBottom = Camera.main.ViewportToWorldPoint(Vector2.zero);
+        Vector3 rightTop = Camera.main.ViewportToWorldPoint(Vector2.one);
+
+        //讀取sun預置物
+        GameObject sunPre = Resources.Load<GameObject>("Prefab/Sun");
+
+        //初始化太陽的位置
+        float x = Random.Range(leftBottom.x + 30, rightTop.x - 30);
+        Vector3 bornPos = new Vector3(x, rightTop.y, 0);
+
+        //生成太陽
+        GameObject sun = Instantiate(sunPre, bornPos, Quaternion.identity);
+        Debug.Log("生成太陽");
+
+        //設定太陽的位置
+        float y = Random.Range(leftBottom.y + 80, leftBottom.y + 30);
+        sun.GetComponent<Sun>().SetTargetPos(new Vector3(bornPos.x, y, 0));
+        Debug.Log("已設定好太陽位置");
+    }
+
+    /// <summary>
     /// 讀取表格
     /// </summary>
     /// <returns></returns>
     IEnumerator CoLoadTable()
     {
         // 使用 Resources.LoadAsync 方法非同步加載名為 "Level" 的資源，返回 ResourceRequest 對象。
-        ResourceRequest request = Resources.LoadAsync("Level");
-        yield return request;
+        ResourceRequest request1 = Resources.LoadAsync("Level");
+        ResourceRequest request2 = Resources.LoadAsync("LevelInfo");
+        yield return request1;
+        yield return request2;
 
         // 將加載的資源轉換為 LevelData 類型並保存到 levelData 變數中。
-        levelData = request.asset as LevelData;
-        for (int i = 0; i < levelData.levelDataList.Count; i++)
-        {
-            Debug.Log(levelData.levelDataList[i].id);
-        }
+        levelData = request1.asset as LevelData;
+        levelInfo = request2.asset as LevelInfo;
+        //for (int i = 0; i < levelData.levelDataList.Count; i++)
+        //{
+        //    Debug.Log(levelData.levelDataList[i].id);
+        //}
 
         //讀取完表格馬上遊戲開始
         GameStart();
@@ -233,6 +270,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.InitUI();
         //StartCoroutine(DelayCreateZombie());
         TableCreateZombie();
+        UIManager.instance.InitProgressPanel();
         //InvokeRepeating("CreateSunDown", 10, 10);
         gameStart = true;
 
