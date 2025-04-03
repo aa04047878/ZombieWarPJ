@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PeaBullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     /// <summary>
     /// 子彈的方向
@@ -16,16 +16,16 @@ public class PeaBullet : MonoBehaviour
     /// 傷害
     /// </summary>
     public float damage;
+    public bool touchWoodCreate;
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
-        damage = 15;
         //10秒後自動銷毀子彈(因為已超出畫面)
         Destroy(gameObject, 10);
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
     }
@@ -39,8 +39,13 @@ public class PeaBullet : MonoBehaviour
             ZombieNormal zombie = hit.GetComponent<ZombieNormal>();
             //呼叫Zombie腳本的ChangeHealth方法
             zombie.ChangeHealth(-damage);
-            //銷毀子彈
-            Destroy(gameObject);
+            DestroyBullet();
         }
+    }
+
+    public virtual void DestroyBullet()
+    {
+        //銷毀子彈
+        Destroy(gameObject);
     }
 }

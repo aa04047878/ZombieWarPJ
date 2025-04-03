@@ -8,6 +8,7 @@ TagManager:
   - Plant
   - Zombie
   - Sun
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -56,4 +57,7 @@ TagManager:
     locked: 0
   - name: Sun
     uniqueID: 2918779819
+    locked: 0
+  - name: Fire
+    uniqueID: 1077568993
     locked: 0

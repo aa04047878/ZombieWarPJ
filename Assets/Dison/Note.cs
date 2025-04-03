@@ -14,6 +14,8 @@ public class Note : MonoBehaviour
         OnTriggerEnter2D() 、 OnTriggerStay2D() 、 OnTriggerExit2D()
     4. OnMouseDown() :
         當滑鼠按下時，觸發此事件
+    5. ClosestPoint() :
+       計算和collider的接觸點
     */
 
     /*
