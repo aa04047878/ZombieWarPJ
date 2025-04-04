@@ -273,6 +273,6 @@ public class GameManager : MonoBehaviour
         UIManager.instance.InitProgressPanel();
         //InvokeRepeating("CreateSunDown", 10, 10);
         gameStart = true;
-
+        SoundManager.instance.PlayBGM(Globals.BGM1);
     }
 }

@@ -88,6 +88,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         Debug.Log("開始拖曳時執行(滑鼠點下的那一瞬間)" + Data.ToString());
 
         curGameObject = Instantiate(objectprefab);
+        //播放點擊卡片的聲音
+        SoundManager.instance.PlaySound(Globals.S_Seedlift);
     }
 
     public void OnDrag(PointerEventData Data)
@@ -138,6 +140,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                     Debug.Log("碰撞到的物件名稱：" + collider.name);
                     //執行放置卡片
                     curGameObject.transform.position = collider.transform.position;
+                    //播放種植音效
+                    SoundManager.instance.PlaySound(Globals.S_Plant);
                     //種植完成後開始啟動植物
                     curGameObject.GetComponent<Plant>().SetPlantStart();
                     //將卡片設定為地板的子物件
