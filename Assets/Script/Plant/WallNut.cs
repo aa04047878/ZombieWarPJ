@@ -8,8 +8,6 @@ public class WallNut : Plant
     protected override void Start()
     {
         base.Start();
-     
-        
     }
 
     protected override void Update()

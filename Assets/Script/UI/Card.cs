@@ -142,10 +142,10 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                     curGameObject.transform.position = collider.transform.position;
                     //播放種植音效
                     SoundManager.instance.PlaySound(Globals.S_Plant);
-                    //種植完成後開始啟動植物
-                    curGameObject.GetComponent<Plant>().SetPlantStart();
                     //將卡片設定為地板的子物件
                     curGameObject.transform.parent = collider.transform;
+                    //種植完成後開始啟動植物
+                    curGameObject.GetComponent<Plant>().SetPlantStart();
                     //消耗陽光
                     GameManager.instance.ChangeSunNum(-useSun);
                     //重置計時器

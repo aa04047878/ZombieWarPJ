@@ -51,7 +51,7 @@ public class Plant : MonoBehaviour
     /// <summary>
     /// 種植完成後啟動植物
     /// </summary>
-    public void SetPlantStart()
+    public virtual void SetPlantStart()
     {
         start = true;
         ///設定動畫速度(撥放)
