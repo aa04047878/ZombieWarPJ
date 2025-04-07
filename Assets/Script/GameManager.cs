@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour
     #region 關卡相關
     public LevelData levelData;
     public LevelInfo levelInfo;
-    private bool gameStart;
+    public PlantInfo plantInfo;
+    public bool gameStart;
     /// <summary>
     /// 當前關卡
     /// </summary>
@@ -68,7 +69,7 @@ public class GameManager : MonoBehaviour
         curLevelId = 1;
         curProgressId = 1;
         StartCoroutine(CoLoadTable());
-        InvokeRepeating("CreateSunDown", 3, 3);
+       
     }
 
     // Update is called once per frame
@@ -91,6 +92,8 @@ public class GameManager : MonoBehaviour
         //更新UI
         UIManager.instance.UpdateUI();
     }
+
+   
 
     /// <summary>
     /// 從表格創造殭屍
@@ -248,14 +251,17 @@ public class GameManager : MonoBehaviour
     IEnumerator CoLoadTable()
     {
         // 使用 Resources.LoadAsync 方法非同步加載名為 "Level" 的資源，返回 ResourceRequest 對象。
-        ResourceRequest request1 = Resources.LoadAsync("Level");
-        ResourceRequest request2 = Resources.LoadAsync("LevelInfo");
+        ResourceRequest request1 = Resources.LoadAsync("Data/Level");
+        ResourceRequest request2 = Resources.LoadAsync("Data/LevelInfo");
+        ResourceRequest request3 = Resources.LoadAsync("Data/PlantInfo");
         yield return request1;
         yield return request2;
+        yield return request3;
 
         // 將加載的資源轉換為 LevelData 類型並保存到 levelData 變數中。
         levelData = request1.asset as LevelData;
         levelInfo = request2.asset as LevelInfo;
+        plantInfo = request3.asset as PlantInfo;
         //for (int i = 0; i < levelData.levelDataList.Count; i++)
         //{
         //    Debug.Log(levelData.levelDataList[i].id);
@@ -269,10 +275,17 @@ public class GameManager : MonoBehaviour
     {
         UIManager.instance.InitUI();
         //StartCoroutine(DelayCreateZombie());
-        TableCreateZombie();
+        
         UIManager.instance.InitProgressPanel();
         //InvokeRepeating("CreateSunDown", 10, 10);
+       
+    }
+
+    public void GameReallyStart()
+    {
         gameStart = true;
+        TableCreateZombie();
+        InvokeRepeating("CreateSunDown", 3, 3);
         SoundManager.instance.PlayBGM(Globals.BGM1);
     }
 
@@ -308,17 +321,5 @@ public class GameManager : MonoBehaviour
         return zombies;
     }
 
-    public static string[] Split(string source, string str)
-    {
-        var list = new List<string>();
-        while (true)
-        {
-            var index = source.IndexOf(str);
-            if (index < 0) { list.Add(source); break; }
-            var rs = source.Substring(0, index);
-            list.Add(rs);
-            source = source.Substring(index + str.Length);
-        }
-        return list.ToArray();
-    }
+   
 }

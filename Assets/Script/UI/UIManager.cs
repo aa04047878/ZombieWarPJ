@@ -8,11 +8,12 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public TMP_Text sunNumText;
     public ProgressPanel progressPanel;
+    public AllCardPanel allCardPanel;
+    public ChooseCardPanel chooseCardPanel;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
-        InitUI();
     }
 
     // Update is called once per frame
@@ -24,6 +25,7 @@ public class UIManager : MonoBehaviour
     public void InitUI()
     {
         sunNumText.text = GameManager.instance.sunNum.ToString();
+        allCardPanel.InitCard();
     }
 
     public void UpdateUI()
