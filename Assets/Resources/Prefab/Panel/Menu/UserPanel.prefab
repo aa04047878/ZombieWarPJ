@@ -3136,6 +3136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btnOk: {fileID: 0}
   btnCancel: {fileID: 0}
+  scroll: {fileID: 2227767798133144836}
+  userNamePrefab: {fileID: 1027115054186529637, guid: 36ddfd4cc138fb8438379422e86bc66f, type: 3}
 --- !u!1 &4091163326147275734
 GameObject:
   m_ObjectHideFlags: 0
