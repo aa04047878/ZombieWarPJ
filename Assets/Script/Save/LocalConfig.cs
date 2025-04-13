@@ -21,6 +21,8 @@ public class LocalConfig : MonoBehaviour
     /// </summary>
     public static Dictionary<string, UserData> userDataDic = new Dictionary<string, UserData>();
 
+    public static ClientData clientData;
+
     /// <summary>
     /// 儲存資料
     /// </summary>
@@ -46,6 +48,10 @@ public class LocalConfig : MonoBehaviour
     /// <returns></returns>
     public static UserData LoadUserData(string userName)
     {
+        ////如果名子為空就返回null
+        //if (userName == null)
+        //    return null;
+
         //讀取資料之前先判斷資料是否已經存在於緩存中(優化1)，已存在直接從緩存中讀取資料即可
         if (userDataDic.ContainsKey(userName))
         {
@@ -64,7 +70,7 @@ public class LocalConfig : MonoBehaviour
         }
         else
         {
-            Debug.LogError("找不到檔案");
+            Debug.Log("找不到檔案");
             return null;
         }
     }
@@ -102,6 +108,11 @@ public class LocalConfig : MonoBehaviour
         return userDataList;
     }
 
+    /// <summary>
+    /// 清除使用者資料
+    /// </summary>
+    /// <param name="userName"></param>
+    /// <returns></returns>
     public static bool ClearUserData(string userName)
     {
         //先找出檔案的路徑
@@ -117,12 +128,51 @@ public class LocalConfig : MonoBehaviour
             {
                 userDataDic.Remove(userName);
             }
+            EventCenter.Instance.EventTrigger(EventType.eventUserDelete, oldUserData);
             return true; //刪除成功
         }
         else
         {
             Debug.LogError("找不到檔案");
             return false; //刪除失敗
+        }
+    }
+
+    public static void SaveClientData(ClientData data)
+    {
+        clientData = data;
+        //把資料轉換成Json格式
+        string jsonData = JsonConvert.SerializeObject(clientData);
+        //將Json格式的資料寫入文件
+        File.WriteAllText(Application.persistentDataPath + "/clientData.json", jsonData);
+    }
+
+    public static ClientData LoadClientData()
+    {
+        //讀取資料之前先判斷資料是否已經存在於緩存中(優化1)，已存在直接從緩存中讀取資料即可
+        if (clientData != null)
+        {
+            return clientData;
+        }
+
+        //資料路徑
+        string path = Application.persistentDataPath + "/clientData.json";
+        //檢查路徑裡是否有檔案
+        if (File.Exists(path))
+        {
+            //從此路徑中讀取所有資料
+            string jsonData = File.ReadAllText(path);
+            //將Json格式的資料轉換成玩家資料(用戶的內存數據)
+            ClientData clientData = JsonConvert.DeserializeObject<ClientData>(jsonData);
+            return clientData;
+        }
+        else
+        {
+            //沒資料就新增一個
+            ClientData clientData = new ClientData("");
+            string jsonData = JsonConvert.SerializeObject(clientData);
+            File.WriteAllText(Application.persistentDataPath + "/clientData.json", jsonData);
+            return clientData;
         }
     }
 }

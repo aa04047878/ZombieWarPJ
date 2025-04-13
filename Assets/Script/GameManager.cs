@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -49,6 +50,8 @@ public class GameManager : MonoBehaviour
     public int curProgressId;
     #endregion
 
+    public GameObject victoryPanel;
+    public GameObject failPanel;
 
     // Start is called before the first frame update
 
@@ -69,7 +72,12 @@ public class GameManager : MonoBehaviour
         curLevelId = 1;
         curProgressId = 1;
         StartCoroutine(CoLoadTable());
-       
+        //victoryPanel = GameObject.Find("VictoryPanel");
+        //failPanel = GameObject.Find("FailPanel");
+
+        //訂閱事件
+        EventCenter.Instance.AddEventListener(EventType.eventPlayerDie, GameOver);
+        EventCenter.Instance.AddEventListener(EventType.eventGameStart, GameReallyStart);
     }
 
     // Update is called once per frame
@@ -118,6 +126,8 @@ public class GameManager : MonoBehaviour
             StopAllCoroutines();
             curProgressZombieList.Clear();
             gameStart = false;
+            //當前關卡結束，勝利
+            BaseUIManager.Instance.OpenPanel(UIConst.victoryPanel);
             return;
         }
 
@@ -321,5 +331,10 @@ public class GameManager : MonoBehaviour
         return zombies;
     }
 
-   
+    
+    public void GameOver()
+    {
+        //failPanel.GetComponent<BasePanel>().OpenPanel(UIConst.victoryPanel);
+        BaseUIManager.Instance.ClosePanel(UIConst.failPanel);
+    }
 }

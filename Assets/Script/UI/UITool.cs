@@ -20,18 +20,16 @@ public class UITool : MonoBehaviour
         }
     }
 
-    public Button GetButton(GameObject mySelf, string findBtnName)
+    public static T GetUIComponent<T>(GameObject mySelf, string findBtnName) 
     {
-        Button btn = null;
         Transform[] transforms = mySelf.GetComponentsInChildren<Transform>(true);
         foreach (Transform t in transforms)
         {
             if (t.name == findBtnName)
             {
-                btn = t.GetComponent<Button>();
-                break;
+                return t.GetComponent<T>();
             }
         }
-        return btn;
+        return default;
     }
 }

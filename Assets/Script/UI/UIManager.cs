@@ -10,10 +10,18 @@ public class UIManager : MonoBehaviour
     public ProgressPanel progressPanel;
     public AllCardPanel allCardPanel;
     public ChooseCardPanel chooseCardPanel;
+    /// <summary>
+    /// 雷射光線
+    /// </summary>
+    public GameObject LaserBeam;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        LaserBeam = GameObject.Find("LaserBeam");
+        LaserBeam.SetActive(false);
+        //訂閱事件
+        EventCenter.Instance.AddEventListener(EventType.eventGameStart, OpenBeam);
     }
 
     // Update is called once per frame
@@ -25,7 +33,7 @@ public class UIManager : MonoBehaviour
     public void InitUI()
     {
         sunNumText.text = GameManager.instance.sunNum.ToString();
-        allCardPanel.InitCard();
+        allCardPanel.InitCard();       
     }
 
     public void UpdateUI()
@@ -81,5 +89,13 @@ public class UIManager : MonoBehaviour
         float finalPercent = percent * (progressPercent - lastProgressPercent) + lastProgressPercent;
         progressPanel.SetPrecent(finalPercent);
 
+    }
+
+    /// <summary>
+    /// 開啟光線
+    /// </summary>
+    private void OpenBeam()
+    {
+        LaserBeam.SetActive(true);
     }
 }

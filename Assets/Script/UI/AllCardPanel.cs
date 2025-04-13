@@ -1,14 +1,19 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AllCardPanel : MonoBehaviour
 {
     public GameObject cardPrefab;
     public GameObject Bg;
+    private Button btnStart;
     // Start is called before the first frame update
     void Start()
     {
+        btnStart = UITool.GetUIComponent<Button>(this.gameObject, "BtnStart");
+        btnStart.onClick.AddListener(() => OnButtonStart());
         for (int i = 0; i < 40; i++)
         {
             GameObject beforeCard = Instantiate(cardPrefab);
@@ -43,7 +48,14 @@ public class AllCardPanel : MonoBehaviour
 
     public void OnButtonStart()
     {
-       
-        GameManager.instance.GameReallyStart();
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        //把anchoredPosition 轉成世界座標
+        Vector3 curWorldPosition = rectTransform.TransformPoint(rectTransform.anchoredPosition);
+        Vector3 newWorldPosition = rectTransform.TransformPoint(new Vector2(rectTransform.anchoredPosition.x, rectTransform.anchoredPosition.y - 500));
+        Debug.Log($"curWorldPosition : {curWorldPosition}");
+        Debug.Log($"worldPosition : {newWorldPosition}");
+        transform.DOMove(newWorldPosition, 2f);
+        //發送遊戲開始通知
+        EventCenter.Instance.EventTrigger(EventType.eventGameStart);
     }
 }

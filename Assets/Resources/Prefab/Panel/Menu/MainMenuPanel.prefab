@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1442226090623652945}
   - component: {fileID: 3429139895769121612}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TxtUserName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6494663675891147488}
   - component: {fileID: 3503266910217742669}
   m_Layer: 5
-  m_Name: BigLevel
+  m_Name: TxtBigLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1073,7 +1073,7 @@ GameObject:
   - component: {fileID: 7325508003928801623}
   - component: {fileID: 8880048481016285781}
   m_Layer: 5
-  m_Name: SmallLevel
+  m_Name: TxtSmallLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7a54cb6bc693cee4b9ad0e5b4d34989e, type: 2}
   m_sharedMaterial: {fileID: -2345600723371538006, guid: 7a54cb6bc693cee4b9ad0e5b4d34989e, type: 2}
@@ -1494,7 +1494,7 @@ GameObject:
   - component: {fileID: 4987048473296659229}
   - component: {fileID: 8938425300308803201}
   m_Layer: 5
-  m_Name: BtnAdVenture
+  m_Name: BtnAdventure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -44,7 +44,7 @@ public class LoadingPanel : MonoBehaviour
         if (really)
         {
             //異步載入場景
-            operation = SceneManager.LoadSceneAsync("Menu");
+            operation = SceneControl.LoadSceneAsync("Menu");
             //載入場景完成後，是否直接切換場景
             operation.allowSceneActivation = false;
         }
@@ -80,7 +80,7 @@ public class LoadingPanel : MonoBehaviour
         if (!really)
         {
             //轉換場景
-            SceneManager.LoadScene("Menu");
+            SceneControl.LoadScene("Menu");
         }
         else
         {

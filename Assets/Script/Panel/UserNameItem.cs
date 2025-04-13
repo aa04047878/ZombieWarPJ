@@ -41,7 +41,7 @@ public class UserNameItem : MonoBehaviour
     {
         if (itemType == "Name")
         {
-            parent.curName = userData.name;
+            parent.curUserName = userData.name;
         }
         else
         {
@@ -56,7 +56,7 @@ public class UserNameItem : MonoBehaviour
     /// </summary>
     public void RefreshSelect()
     {
-        select.SetActive(userData.name == parent.curName);
+        select.SetActive(userData.name == parent.curUserName);
     }
 
     public void InitItem(UserData userData, UserPanel userPanel)

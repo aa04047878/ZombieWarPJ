@@ -9,6 +9,7 @@ TagManager:
   - Zombie
   - Sun
   - Bullet
+  - Laser
   layers:
   - Default
   - TransparentFX
