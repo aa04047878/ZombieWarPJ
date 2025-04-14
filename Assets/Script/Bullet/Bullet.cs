@@ -17,11 +17,14 @@ public class Bullet : MonoBehaviour
     /// </summary>
     public float damage;
     public bool touchWoodCreate;
+    private bool isDestroyed;
     // Start is called before the first frame update
     protected virtual void Start()
     {
         //10笆綪反紆(禬礶)
         Destroy(gameObject, 10);
+        //璹綷ㄆン
+        //EventCenter.Instance.AddEventListener(EventType.eventGameOver, GameOver);
     }
 
     // Update is called once per frame
@@ -47,5 +50,22 @@ public class Bullet : MonoBehaviour
     {
         //綪反紆
         Destroy(gameObject);
+        isDestroyed = true;
     }
+
+    //protected void GameOver()
+    //{
+    //    //笴栏挡綪反紆
+    //    Destroy(gameObject);
+    //}
+
+    //protected void OnTimeDestroy()
+    //{
+    //    if (isDestroyed)
+    //        return;
+
+    //    //綪反紆
+    //    Destroy(gameObject);
+    //    isDestroyed = true;
+    //}
 }

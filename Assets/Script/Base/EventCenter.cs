@@ -166,6 +166,10 @@ public class EventType
     /// 遊戲開始事件
     /// </summary>
     public const string eventGameStart = "EventGameStart";
+    /// <summary>
+    /// 遊戲結束事件
+    /// </summary>
+    public const string eventGameOver = "EventGameOver";
 
 
 }

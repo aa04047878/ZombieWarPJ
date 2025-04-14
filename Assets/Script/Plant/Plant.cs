@@ -15,6 +15,7 @@ public class Plant : MonoBehaviour
     protected bool start;
     protected Animator ani;
     protected BoxCollider2D boxCollider2D;
+    private bool isDestroyed;
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -25,6 +26,8 @@ public class Plant : MonoBehaviour
         boxCollider2D.enabled = false;
         ///設定動畫速度(不要撥放)
         ani.speed = 0;
+        //訂閱事件
+        //EventCenter.Instance.AddEventListener(EventType.eventGameOver, GameOver);
     }
 
     // Update is called once per frame
@@ -44,6 +47,7 @@ public class Plant : MonoBehaviour
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
+            isDestroyed = true;
         }
         return currentHealth;
     }
@@ -57,5 +61,15 @@ public class Plant : MonoBehaviour
         ///設定動畫速度(撥放)
         ani.speed = 1;
         boxCollider2D.enabled = true;
+    }
+
+    private void GameOver()
+    {
+        if (isDestroyed)
+        {
+            return;
+        }
+
+        Destroy(gameObject);
     }
 }

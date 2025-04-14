@@ -47,6 +47,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     /// 卡片是否初始化
     /// </summary>
     public bool hasStart;
+    private bool gameStart;
+    private bool gameOver;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +59,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         //遊戲還沒開始不應該執行
         darkBg.SetActive(false);
         progressBar.SetActive(false);
+        //註冊事件
+        EventCenter.Instance.AddEventListener(EventType.eventGameStart, GameStart);
+        EventCenter.Instance.AddEventListener(EventType.eventGameOver, GameOver);
     }
 
     // Update is called once per frame
@@ -111,6 +116,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
     public void OnBeginDrag(PointerEventData Data)
     {
+        if (gameOver)
+            return;
+
         if (!hasStart)
             return;
 
@@ -128,7 +136,10 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     }
 
     public void OnDrag(PointerEventData Data)
-    {   
+    {
+        if (gameOver)
+            return;
+
         //顯示暗背景，代表不能拖曳(種植條件不足)
         if (darkBg.activeSelf)
         {
@@ -155,6 +166,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
     public void OnEndDrag(PointerEventData Data)
     {
+        if (gameOver)
+            return;
+
         //顯示暗背景，代表不能拖曳(種植條件不足)
         if (darkBg.activeSelf)
         {
@@ -220,6 +234,10 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     public void OnPointerClick(PointerEventData eventData)
     {
         //點擊卡片時執行
+
+        //遊戲開始不執行
+        if (gameStart)
+            return;
 
         //正在移動時不做事情
         if (isMoving)
@@ -306,5 +324,15 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             useCard.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             useCard.GetComponent<Card>().isMoving = false;
         });
+    }
+
+    private void GameStart()
+    {
+        gameStart = true;
+    }
+
+    private void GameOver()
+    {
+        gameOver = true;
     }
 }

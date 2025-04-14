@@ -123,14 +123,22 @@ public class GameManager : MonoBehaviour
         //如果沒有波次了，則停止所有協程
         if (canCreateNum == 0)
         {
+            //遊戲結束邏輯
+            Debug.Log("當前關卡已經結束，沒有波次了");
+            EventCenter.Instance.EventTrigger(EventType.eventGameOver);
             StopAllCoroutines();
             curProgressZombieList.Clear();
             gameStart = false;
-            //當前關卡結束，勝利
-            BaseUIManager.Instance.OpenPanel(UIConst.victoryPanel);
+            victoryPanel.SetActive(true);
+
+            //資料儲存
+            UserData userData = LocalConfig.LoadUserData(BaseManager.Instance.curUserName);
+            userData.level++;
+            LocalConfig.SaveUserData(userData);
             return;
         }
 
+        Debug.Log($"創造第{curProgressId}波的殭屍");
         //創造殭屍
         for (int i = 0; i < levelData.levelDataList.Count; i++)
         {
@@ -202,6 +210,7 @@ public class GameManager : MonoBehaviour
         {
             //下一波
             curProgressId++;
+            Debug.Log($"當前波次 : {curProgressId}");
             TableCreateZombie();
         }
     }
