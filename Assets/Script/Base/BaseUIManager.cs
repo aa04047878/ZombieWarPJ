@@ -69,6 +69,7 @@ public class BaseUIManager
             {UIConst.newUserPanel, "Menu/NewUserPanel"},
             {UIConst.victoryPanel, "Menu/VictoryPanel"},
             {UIConst.failPanel, "Menu/FailPanel"},
+            {UIConst.reNameUserPanel, "Menu/ReNameUserPanel"},
             
         };
     }
@@ -147,6 +148,7 @@ public class UIConst
     public const string newUserPanel = "NewUserPanel";
     public const string victoryPanel = "VictoryPanel";
     public const string failPanel = "FailPanel";
+    public const string reNameUserPanel = "ReNameUserPanel";
     
 }
 

@@ -57,6 +57,7 @@ public class UserNameItem : MonoBehaviour
     public void RefreshSelect()
     {
         select.SetActive(userData.name == parent.curUserName);
+        Debug.Log($"自己身上的資料名子 : {userData.name}, userPanel當前名子 : {parent.curUserName}");
     }
 
     public void InitItem(UserData userData, UserPanel userPanel)

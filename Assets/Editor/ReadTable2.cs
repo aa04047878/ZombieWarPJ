@@ -7,13 +7,13 @@ using UnityEngine;
 
 // 使用 [InitializeOnLoad] 特性，讓此類在編輯器啟動時加載
 [InitializeOnLoad]
-public class Startup
+public class CreateTable2
 {
     public static bool needRead = false;
 
     // 靜態建構函式，在類被加載時自動執行
-    static Startup()
-    { 
+    static CreateTable2()
+    {
         // 如果 needRead 為 false，就直接返回，不進行以下操作
         if (!needRead)
         {
@@ -33,7 +33,7 @@ public class Startup
         using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
         {
             // 獲取名為 "殭屍" 的工作表
-            ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Level1"];
+            ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Level2"];
             // 遍歷工作表的有效行範圍（跳過前兩行，因為它可能是標題）
             for (int i = worksheet.Dimension.Start.Row + 2; i <= worksheet.Dimension.End.Row; i++)
             {
@@ -57,14 +57,14 @@ public class Startup
         }
 
         //把創建出來的ScriptableObject保存到指定路徑 (將 LevelData 存儲為 Unity 資產（.asset 文件))
-        AssetDatabase.CreateAsset(levelData, "Assets/Resources/" + assetName + ".asset");
+        AssetDatabase.CreateAsset(levelData, "Assets/Resources/Data/Level2/" + assetName + ".asset");
         //保存資產變更
         AssetDatabase.SaveAssets();
         // 刷新資產數據庫，讓變更即時反映在編輯器中(覆蓋原本資料)
         AssetDatabase.Refresh();
-        
+
     }
-    
+
 }
 
 #region 補充說明

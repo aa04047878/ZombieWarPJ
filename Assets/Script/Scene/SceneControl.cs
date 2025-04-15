@@ -22,6 +22,10 @@ public class SceneControl : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         //EventCenter.Instance.AddEventListener
         SceneManager.sceneLoaded += OnSceneLoaded;
+        if (SceneManager.GetActiveScene().name == "Loading")
+        {
+            SoundManager.instance.PlayBGM(Globals.BGM2);
+        }
     }
 
     private void Update()
@@ -49,7 +53,11 @@ public class SceneControl : MonoBehaviour
     }
 
 
-    // 處理場景載入完成的邏輯
+    /// <summary>
+    /// 處理場景載入完成的邏輯
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="mode"></param>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"場景 {scene.name} 已經載入完成！");
@@ -57,12 +65,20 @@ public class SceneControl : MonoBehaviour
         // 例如：初始化場景中的物件、設置攝影機位置等等
         switch (scene.name)
         {
+            case "Loading":
+                SoundManager.instance.PlayBGM(Globals.BGM2);
+                break;
             case "Menu":
                 // 在這裡處理 Menu 場景的載入完成邏輯
                 BaseUIManager.Instance.OpenPanel(UIConst.mainMenuPanel);
+                SoundManager.instance.PlayBGM(Globals.BGM5);
                 break;
             case "Game":
                 // 在這裡處理 Game 場景的載入完成邏輯
+                GameManager.instance.curProgressZombieList = new List<GameObject>();
+                GameManager.instance.curLevelId = 1;
+                GameManager.instance.curProgressId = 1;
+                StartCoroutine(GameManager.instance.CoLoadTable());
                 break;
             default:
                 break;

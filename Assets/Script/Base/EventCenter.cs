@@ -159,18 +159,21 @@ public class EventType
     /// </summary>
     public const string eventUserDelete = "EventUserDelete";
     /// <summary>
-    /// 玩家死亡事件
+    /// 修改(重新命名)使用者事件
     /// </summary>
-    public const string eventPlayerDie = "EventPlayerDie";
+    public const string eventModifyUser = "EventModifyUser";
     /// <summary>
     /// 遊戲開始事件
     /// </summary>
     public const string eventGameStart = "EventGameStart";
     /// <summary>
-    /// 遊戲結束事件
+    /// 遊戲勝利事件
     /// </summary>
-    public const string eventGameOver = "EventGameOver";
-
+    public const string eventGameVictory = "EventGameVictory";
+    /// <summary>
+    /// 遊戲失敗事件
+    /// </summary>
+    public const string eventGameFail = "EventGameFail";
 
 }
 

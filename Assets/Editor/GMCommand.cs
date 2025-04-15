@@ -58,4 +58,13 @@ public class GMCommand
             return; //刪除失敗
         }
     }
+
+    [MenuItem("GMCommand/Reset目前使用者的關卡等級")]
+    public static void ResetCurUserLevel()
+    {
+        UserData userData = LocalConfig.LoadUserData(BaseManager.Instance.curUserName);
+        userData.level = 1;
+        LocalConfig.SaveUserData(userData);
+        Debug.Log($"重置{userData.name}的關卡等級成功，目前等級為 : {userData.level}");
+    }
 }

@@ -68,15 +68,12 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        curProgressZombieList = new List<GameObject>();
-        curLevelId = 1;
-        curProgressId = 1;
-        StartCoroutine(CoLoadTable());
+        
         //victoryPanel = GameObject.Find("VictoryPanel");
         //failPanel = GameObject.Find("FailPanel");
 
         //訂閱事件
-        EventCenter.Instance.AddEventListener(EventType.eventPlayerDie, GameOver);
+        EventCenter.Instance.AddEventListener(EventType.eventGameFail, GameOver);
         EventCenter.Instance.AddEventListener(EventType.eventGameStart, GameReallyStart);
     }
 
@@ -125,7 +122,7 @@ public class GameManager : MonoBehaviour
         {
             //遊戲結束邏輯
             Debug.Log("當前關卡已經結束，沒有波次了");
-            EventCenter.Instance.EventTrigger(EventType.eventGameOver);
+            EventCenter.Instance.EventTrigger(EventType.eventGameVictory);
             StopAllCoroutines();
             curProgressZombieList.Clear();
             gameStart = false;
@@ -135,6 +132,7 @@ public class GameManager : MonoBehaviour
             UserData userData = LocalConfig.LoadUserData(BaseManager.Instance.curUserName);
             userData.level++;
             LocalConfig.SaveUserData(userData);
+            TimeManager.PauseGame();
             return;
         }
 
@@ -143,7 +141,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < levelData.levelDataList.Count; i++)
         {
             LevelItem levelItem = levelData.levelDataList[i];
-            if (levelItem.levelId == curLevelId && levelItem.progressId == curProgressId)
+            if (levelItem.progressId == curProgressId)
             {
                 StartCoroutine(CoTableCreateZombie(levelItem)); 
             }
@@ -267,12 +265,14 @@ public class GameManager : MonoBehaviour
     /// 讀取表格
     /// </summary>
     /// <returns></returns>
-    IEnumerator CoLoadTable()
+    public IEnumerator CoLoadTable()
     {
+        UserData userData = LocalConfig.LoadUserData(BaseManager.Instance.curUserName);
+
         // 使用 Resources.LoadAsync 方法非同步加載名為 "Level" 的資源，返回 ResourceRequest 對象。
-        ResourceRequest request1 = Resources.LoadAsync("Data/Level");
-        ResourceRequest request2 = Resources.LoadAsync("Data/LevelInfo");
-        ResourceRequest request3 = Resources.LoadAsync("Data/PlantInfo");
+        ResourceRequest request1 = Resources.LoadAsync($"Data/Level{userData.level}/Level");
+        ResourceRequest request2 = Resources.LoadAsync($"Data/Level{userData.level}/LevelInfo");
+        ResourceRequest request3 = Resources.LoadAsync($"Data/Level{userData.level}/PlantInfo");
         yield return request1;
         yield return request2;
         yield return request3;
@@ -344,6 +344,10 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //failPanel.GetComponent<BasePanel>().OpenPanel(UIConst.victoryPanel);
-        BaseUIManager.Instance.ClosePanel(UIConst.failPanel);
+        failPanel.SetActive(true);
+        StopAllCoroutines();
+        //curProgressZombieList.Clear();
+        gameStart = false;
+        TimeManager.PauseGame();
     }
 }

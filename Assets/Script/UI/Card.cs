@@ -61,7 +61,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         progressBar.SetActive(false);
         //µù¥U¨Æ¥ó
         EventCenter.Instance.AddEventListener(EventType.eventGameStart, GameStart);
-        EventCenter.Instance.AddEventListener(EventType.eventGameOver, GameOver);
+        EventCenter.Instance.AddEventListener(EventType.eventGameVictory, GameOver);
     }
 
     // Update is called once per frame

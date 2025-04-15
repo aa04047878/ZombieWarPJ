@@ -29,8 +29,8 @@ public class Player : MonoBehaviour
         Debug.Log($"玩家目前血量 : {curHp}");
         if (curHp <= 0)
         {
-            //通知玩家死亡
-            EventCenter.Instance.EventTrigger(EventType.eventPlayerDie);
+            //通知遊戲失敗
+            EventCenter.Instance.EventTrigger(EventType.eventGameFail);
 
         }
     }

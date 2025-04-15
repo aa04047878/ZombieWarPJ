@@ -66,7 +66,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < GameManager.instance.levelData.levelDataList.Count; i++)
         {
             LevelItem levelItem = GameManager.instance.levelData.levelDataList[i];
-            if (levelItem.levelId == GameManager.instance.curLevelId && levelItem.progressId == GameManager.instance.curProgressId)
+            if (levelItem.progressId == GameManager.instance.curProgressId)
             {
                 progressNum++;
             }

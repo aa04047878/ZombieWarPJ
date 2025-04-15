@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class UserPanel : BasePanel
     public Button btnOk;
     public Button btnCancel;
     public Button btnDelete;
+    private Button BtnReName;
     private string _curUserName;
     public string curUserName
     {
@@ -36,9 +38,11 @@ public class UserPanel : BasePanel
         btnOk = UITool.GetUIComponent<Button>(this.gameObject, "BtnOk");
         btnCancel = UITool.GetUIComponent<Button>(this.gameObject, "BtnCancel");
         btnDelete = UITool.GetUIComponent<Button>(this.gameObject, "BtnDelete");
+        BtnReName = UITool.GetUIComponent<Button>(gameObject, "BtnReName");
         btnOk.onClick.AddListener(() => OnBtnOk());
         btnCancel.onClick.AddListener(() => OnBtnCancel());
         btnDelete.onClick.AddListener(() => OnBtnDelete());
+        BtnReName.onClick.AddListener(() => OnBtnReName());
         //testData = new List<UserData>();
         //testData.Add(new UserData("小棋1", 1));
         //testData.Add(new UserData("小棋2", 2));
@@ -48,6 +52,8 @@ public class UserPanel : BasePanel
         EventCenter.Instance.AddEventListener<UserData>(EventType.eventNewUserCreate, OnEventNewUserCreate);
         EventCenter.Instance.AddEventListener<UserData>(EventType.eventUserDelete, OnEventUserDelete);
         EventCenter.Instance.AddEventListener<string>(EventType.eventCurUserChange, OnEventCurUserChange);
+        //EventCenter.Instance.AddEventListener<string>(EventType.eventModifyUser, OnEventCurUserChange);
+        EventCenter.Instance.AddEventListener<UserData>(EventType.eventModifyUser, OnEventModifyUser);
     }
 
     private void OnBtnOk()
@@ -80,22 +86,10 @@ public class UserPanel : BasePanel
 
         //刪除用戶
         bool isSuccess = LocalConfig.ClearUserData(curUserName);
-        if (isSuccess && curUserName == BaseManager.Instance.curUserName)
+        if (isSuccess)
         {
-            List<UserData> userDatas = LocalConfig.LoadAllUserData();
-            if (userDatas.Count > 0)
-            {
-                //如果還有其他用戶，則選擇第一個用戶
-                curUserName = userDatas[0].name;
-                BaseManager.Instance.SetCurUserName(curUserName);
-            }
-            else
-            {
-                //如果沒有其他用戶，則清空當前用戶名稱
-                curUserName = "";
-                BaseManager.Instance.SetCurUserName(curUserName);
-            }
-
+            curUserName = "";
+            BaseManager.Instance.SetCurUserName(curUserName);   
             Debug.Log("刪除用戶成功");
             //重新整理用戶列表
             //RefreshMainPanel(); 等別人通知我，我再從新整理
@@ -104,6 +98,12 @@ public class UserPanel : BasePanel
         {
             Debug.Log("刪除用戶失敗");
         }
+    }
+
+    private void OnBtnReName()
+    {
+        GameObject modifyUserPanel = BaseUIManager.Instance.OpenPanel(UIConst.reNameUserPanel).gameObject;
+        modifyUserPanel.GetComponent<ModifyUserPanel>().oldUserData = LocalConfig.LoadUserData(curUserName);
     }
 
     /// <summary>
@@ -120,6 +120,7 @@ public class UserPanel : BasePanel
     private void RefreshMainPanel()
     {
         //先把原本所有的userNameItem全部砍掉
+        Debug.Log($"顯示長度 : {scroll.content}");
         foreach (Transform child in scroll.content)
         {
             Debug.Log(child);
@@ -152,6 +153,7 @@ public class UserPanel : BasePanel
     void OnEventNewUserCreate(UserData userData)
     {
         RefreshMainPanel();
+        curUserName = userData.name;
     }
 
     void OnEventUserDelete(UserData userData)
@@ -172,4 +174,11 @@ public class UserPanel : BasePanel
         EventCenter.Instance.RemoveEventListener<UserData>(EventType.eventUserDelete, OnEventUserDelete);
         EventCenter.Instance.RemoveEventListener<string>(EventType.eventCurUserChange, OnEventCurUserChange);
     }
+
+    private void OnEventModifyUser(UserData userData)
+    {
+        RefreshMainPanel();
+        curUserName = userData.name;
+
+    }    
 }

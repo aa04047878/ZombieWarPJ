@@ -17,14 +17,14 @@ public class Bullet : MonoBehaviour
     /// </summary>
     public float damage;
     public bool touchWoodCreate;
-    private bool isDestroyed;
+    //private bool isDestroyed;
     // Start is called before the first frame update
     protected virtual void Start()
     {
         //10秒後自動銷毀子彈(因為已超出畫面)
         Destroy(gameObject, 10);
         //訂閱事件
-        //EventCenter.Instance.AddEventListener(EventType.eventGameOver, GameOver);
+        //EventCenter.Instance.AddEventListener(EventType.eventGameVictory, GameOver);
     }
 
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class Bullet : MonoBehaviour
     {
         //銷毀子彈
         Destroy(gameObject);
-        isDestroyed = true;
+        //isDestroyed = true;
     }
 
     //protected void GameOver()

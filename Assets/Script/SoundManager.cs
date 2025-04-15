@@ -10,15 +10,19 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
             Destroy(gameObject);
+        audioSource = GetComponent<AudioSource>();
+        dictAudio = new Dictionary<string, AudioClip>();
     }
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        dictAudio = new Dictionary<string, AudioClip>();
+      
     }
     
     /// <summary>

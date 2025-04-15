@@ -27,7 +27,7 @@ public class Plant : MonoBehaviour
         ///設定動畫速度(不要撥放)
         ani.speed = 0;
         //訂閱事件
-        //EventCenter.Instance.AddEventListener(EventType.eventGameOver, GameOver);
+        //EventCenter.Instance.AddEventListener(EventType.eventGameVictory, GameOver);
     }
 
     // Update is called once per frame
