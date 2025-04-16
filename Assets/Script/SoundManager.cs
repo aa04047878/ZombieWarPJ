@@ -76,4 +76,14 @@ public class SoundManager : MonoBehaviour
         audioSource.PlayOneShot(GetAudio(path), value);
         audioSource.volume = value;
     }
+
+    public void SetVolume(float volume)
+    {
+        audioSource.volume = volume;
+    }
+
+    public float GetVolume()
+    {
+        return audioSource.volume;
+    }
 }
