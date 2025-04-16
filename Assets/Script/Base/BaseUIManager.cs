@@ -70,6 +70,9 @@ public class BaseUIManager
             {UIConst.victoryPanel, "Menu/VictoryPanel"},
             {UIConst.failPanel, "Menu/FailPanel"},
             {UIConst.reNameUserPanel, "Menu/ReNameUserPanel"},
+            {UIConst.promptMessagePanel, "Menu/PromptMessagePanel"},
+            {UIConst.settingPanel, "Menu/SettingPanel"},
+            {UIConst.quitMessagePanel, "Menu/QuitMessagePanel"},
             
         };
     }
@@ -149,6 +152,15 @@ public class UIConst
     public const string victoryPanel = "VictoryPanel";
     public const string failPanel = "FailPanel";
     public const string reNameUserPanel = "ReNameUserPanel";
+    /// <summary>
+    /// 提示訊息介面
+    /// </summary>
+    public const string promptMessagePanel = "PromptMessagePanel";
+    public const string settingPanel = "SettingPanel";
+    /// <summary>
+    /// 離開訊息介面
+    /// </summary>
+    public const string quitMessagePanel = "QuitMessagePanel";
     
 }
 

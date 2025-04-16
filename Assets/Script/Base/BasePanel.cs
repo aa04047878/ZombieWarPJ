@@ -28,6 +28,10 @@ public class BasePanel : MonoBehaviour
 
     }
 
+    protected virtual void Update()
+    {
+        
+    }
     public virtual void SetActive(bool active)
     {
         gameObject.SetActive(active);

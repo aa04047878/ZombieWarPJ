@@ -25,6 +25,7 @@ public class SceneControl : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Loading")
         {
             SoundManager.instance.PlayBGM(Globals.BGM2);
+        
         }
     }
 

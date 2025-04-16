@@ -10,6 +10,10 @@ public class UserPanel : BasePanel
     public Button btnCancel;
     public Button btnDelete;
     private Button BtnReName;
+    /// <summary>
+    /// 提示訊息
+    /// </summary>
+    private GameObject promptMessage;
     private string _curUserName;
     public string curUserName
     {
@@ -30,30 +34,32 @@ public class UserPanel : BasePanel
     protected override void Awake()
     {
         base.Awake();
+        btnOk = UITool.GetUIComponent<Button>(this.gameObject, "BtnOk");
+        btnCancel = UITool.GetUIComponent<Button>(this.gameObject, "BtnCancel");
+        btnDelete = UITool.GetUIComponent<Button>(this.gameObject, "BtnDelete");
+        BtnReName = UITool.GetUIComponent<Button>(gameObject, "BtnReName");
+        promptMessage = UITool.GetUIComponent<GameObject>(this.gameObject, "PromptMessage");
     }
 
     protected override void Start()
     {
         base.Start();
-        btnOk = UITool.GetUIComponent<Button>(this.gameObject, "BtnOk");
-        btnCancel = UITool.GetUIComponent<Button>(this.gameObject, "BtnCancel");
-        btnDelete = UITool.GetUIComponent<Button>(this.gameObject, "BtnDelete");
-        BtnReName = UITool.GetUIComponent<Button>(gameObject, "BtnReName");
+       
+        if (BaseManager.Instance.curUserName != "")
+            btnCancel.gameObject.SetActive(true);
+
         btnOk.onClick.AddListener(() => OnBtnOk());
         btnCancel.onClick.AddListener(() => OnBtnCancel());
         btnDelete.onClick.AddListener(() => OnBtnDelete());
         BtnReName.onClick.AddListener(() => OnBtnReName());
-        //testData = new List<UserData>();
-        //testData.Add(new UserData("小棋1", 1));
-        //testData.Add(new UserData("小棋2", 2));
-        RefreshMainPanel();
-        curUserName = BaseManager.Instance.curUserName;
         //訂閱事件
         EventCenter.Instance.AddEventListener<UserData>(EventType.eventNewUserCreate, OnEventNewUserCreate);
         EventCenter.Instance.AddEventListener<UserData>(EventType.eventUserDelete, OnEventUserDelete);
         EventCenter.Instance.AddEventListener<string>(EventType.eventCurUserChange, OnEventCurUserChange);
         //EventCenter.Instance.AddEventListener<string>(EventType.eventModifyUser, OnEventCurUserChange);
         EventCenter.Instance.AddEventListener<UserData>(EventType.eventModifyUser, OnEventModifyUser);
+        RefreshMainPanel();
+        curUserName = BaseManager.Instance.curUserName;
     }
 
     private void OnBtnOk()
@@ -67,11 +73,23 @@ public class UserPanel : BasePanel
         else
         {
             Debug.Log("請選擇用戶");
+            BasePanel basePanel =  BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
+            PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
+            promptMessagePanel.txtTitle.text = "請選擇用戶";
         }
     }
 
     private void OnBtnCancel()
     {
+        if (BaseManager.Instance.curUserName == "")
+        {
+            Debug.Log("請選擇用戶");
+            BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
+            PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
+            promptMessagePanel.txtTitle.text = "請選擇用戶";
+            return;
+        }
+
         ClosePanel();
     }
 
@@ -81,6 +99,9 @@ public class UserPanel : BasePanel
         if (curUserName == "")
         {
             Debug.Log("請選擇要刪除的用戶");
+            BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
+            PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
+            promptMessagePanel.txtTitle.text = "請選擇要刪除的用戶";
             return;
         }
 
@@ -91,6 +112,7 @@ public class UserPanel : BasePanel
             curUserName = "";
             BaseManager.Instance.SetCurUserName(curUserName);   
             Debug.Log("刪除用戶成功");
+            btnCancel.gameObject.SetActive(false);
             //重新整理用戶列表
             //RefreshMainPanel(); 等別人通知我，我再從新整理
         }
@@ -102,6 +124,14 @@ public class UserPanel : BasePanel
 
     private void OnBtnReName()
     {
+        if (curUserName == "")
+        {
+            Debug.Log("請選擇要變更名子的用戶");
+            BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
+            PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
+            promptMessagePanel.txtTitle.text = "請選擇要變更名子的用戶";
+            return;
+        }
         GameObject modifyUserPanel = BaseUIManager.Instance.OpenPanel(UIConst.reNameUserPanel).gameObject;
         modifyUserPanel.GetComponent<ModifyUserPanel>().oldUserData = LocalConfig.LoadUserData(curUserName);
     }

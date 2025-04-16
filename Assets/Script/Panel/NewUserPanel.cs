@@ -13,14 +13,14 @@ public class NewUserPanel : BasePanel
     protected override void Awake()
     {
         base.Awake();
+        btnOk = UITool.GetUIComponent<Button>(gameObject, "BtnOk");
+        btnCancel = UITool.GetUIComponent<Button>(gameObject, "BtnCancel");
+        inputField = UITool.GetUIComponent<TMP_InputField>(gameObject, "InputField");
     }
 
     protected override void Start()
     {
         base.Start();
-        btnOk = UITool.GetUIComponent<Button>(gameObject,"BtnOk");
-        btnCancel = UITool.GetUIComponent<Button>(gameObject, "BtnCancel");
-        inputField = UITool.GetUIComponent<TMP_InputField>(gameObject, "InputField");
         btnOk.onClick.AddListener(() => OnBtnOk());
         btnCancel.onClick.AddListener(() => OnBtnCancel());
         inputField.onValueChanged.AddListener((value) => OnInputFieldChange(value));

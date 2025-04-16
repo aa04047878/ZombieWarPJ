@@ -16,19 +16,19 @@ public class UserNameItem : MonoBehaviour
 
     private void Awake()
     {
-        itemType = "Name";
         txt = transform.Find("Name").GetComponent<TMP_Text>();
         select = transform.Find("Select").gameObject;
         Debug.Log($"select.name : {select.name}");
-        select.SetActive(false);
         btn = GetComponent<Button>();
-        btn.onClick.AddListener(() => OnBtnNameItem());
+        itemType = "Name";
     }
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        btn.onClick.AddListener(() => OnBtnNameItem());
+        select.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -58,6 +58,7 @@ public class UserNameItem : MonoBehaviour
     {
         select.SetActive(userData.name == parent.curUserName);
         Debug.Log($"自己身上的資料名子 : {userData.name}, userPanel當前名子 : {parent.curUserName}");
+        Debug.Log($"是否打開select : {userData.name == parent.curUserName}");
     }
 
     public void InitItem(UserData userData, UserPanel userPanel)
