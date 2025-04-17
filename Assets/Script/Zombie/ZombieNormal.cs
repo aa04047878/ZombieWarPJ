@@ -58,9 +58,7 @@ public class ZombieNormal : MonoBehaviour
         direction = Vector3.left;
         ani = GetComponent<Animator>();
         damageTimer = 0;
-        health = 100;
-        currentHealth = health;
-        lostHeadHealth = 50;
+        SetAttribute();
         head = transform.Find("Head").gameObject;
         isDie = false;
         lostHead = false;
@@ -171,5 +169,33 @@ public class ZombieNormal : MonoBehaviour
         ani.enabled = false;
         GameManager.instance.ZombieDie(gameObject);
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// 設定屬性
+    /// </summary>
+    public void SetAttribute()
+    {
+        UserData userData = LocalConfig.LoadUserData(BaseManager.Instance.curUserName);
+        switch (userData.level)
+        {
+            case 1:
+                health = 75;
+                damage = 20;
+                break;
+            case 2:
+                health = 100;
+                damage = 30;
+                break;
+            case 3:
+                health = 150;
+                damage = 40;
+                break;
+            default:
+                Debug.Log("目前沒還有此關卡");
+                break;
+        }
+        currentHealth = health;
+        lostHeadHealth = health / 2;
     }
 }

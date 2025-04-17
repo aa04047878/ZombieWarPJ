@@ -50,8 +50,10 @@ public class GameManager : MonoBehaviour
     public int curProgressId;
     #endregion
 
-    public GameObject victoryPanel;
-    public GameObject failPanel;
+    public GameObject victoryPanelPre;
+    public GameObject victoryPanelObj;
+    public GameObject failPanelPre;
+    public GameObject failPanelObj;
 
     // Start is called before the first frame update
 
@@ -60,18 +62,22 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(this.gameObject);
+           
         }
     }
     void Start()
     {
-        
-        //victoryPanel = GameObject.Find("VictoryPanel");
-        //failPanel = GameObject.Find("FailPanel");
 
+        //victoryPanelPre = GameObject.Find("VictoryPanel");
+        //failPanelPre = GameObject.Find("FailPanel");
+        zombiePre = Resources.Load<GameObject>("Prefab/Zombie1");
+        victoryPanelPre = Resources.Load<GameObject>("Prefab/Panel/Menu/VictoryPanel");
+        failPanelPre = Resources.Load<GameObject>("Prefab/Panel/Menu/FailPanel");
         //訂閱事件
         EventCenter.Instance.AddEventListener(EventType.eventGameFail, GameOver);
         EventCenter.Instance.AddEventListener(EventType.eventGameStart, GameReallyStart);
@@ -124,9 +130,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("當前關卡已經結束，沒有波次了");
             EventCenter.Instance.EventTrigger(EventType.eventGameVictory);
             StopAllCoroutines();
+            CancelInvoke("CreateSunDown");
             curProgressZombieList.Clear();
             gameStart = false;
-            victoryPanel.SetActive(true);
+            victoryPanelObj.SetActive(true);
 
             //資料儲存
             UserData userData = LocalConfig.LoadUserData(BaseManager.Instance.curUserName);
@@ -343,8 +350,8 @@ public class GameManager : MonoBehaviour
     
     public void GameOver()
     {
-        //failPanel.GetComponent<BasePanel>().OpenPanel(UIConst.victoryPanel);
-        failPanel.SetActive(true);
+        //failPanelPre.GetComponent<BasePanel>().OpenPanel(UIConst.victoryPanelPre);
+        failPanelObj.SetActive(true);
         StopAllCoroutines();
         //curProgressZombieList.Clear();
         gameStart = false;
