@@ -130,7 +130,7 @@ public class BaseUIManager
         //如果介面沒打開，就返回
         if (!panelDict.TryGetValue(name, out panel))
         {
-            Debug.LogError("介面未打開: " + name);
+            Debug.Log("介面未打開，不執行任何操作: " + name);
             return false;
         }
 

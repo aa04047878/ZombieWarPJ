@@ -17,6 +17,13 @@ public class SceneControl : MonoBehaviour
             return instance;
         }
     }
+
+    public static AsyncOperation operation;
+    private void Awake()
+    {
+        //FadeManager.instance.SetParent("Canvas");
+    }
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -41,7 +48,10 @@ public class SceneControl : MonoBehaviour
     /// <returns></returns>
     public static AsyncOperation LoadSceneAsync(string loadSceneName)
     {
-        return SceneManager.LoadSceneAsync(loadSceneName);
+        operation = SceneManager.LoadSceneAsync(loadSceneName);
+        //載入場景完成後要不要馬上切換
+        operation.allowSceneActivation = false;
+        return operation;
     }
 
     /// <summary>
@@ -67,18 +77,29 @@ public class SceneControl : MonoBehaviour
         switch (scene.name)
         {
             case "Loading":
+                FadeManager.instance.SetParent("Canvas");
                 SoundManager.instance.PlayBGM(Globals.BGM2);
                 break;
             case "Menu":
                 // 在這裡處理 Menu 場景的載入完成邏輯
+                TimeManager.ResumeGame();
                 BaseUIManager.Instance.OpenPanel(UIConst.mainMenuPanel);
+                FadeManager.instance.SetParent("Canvas");
+                FadeManager.instance.FadeOut();
                 SoundManager.instance.PlayBGM(Globals.BGM5);
                 break;
             case "Game":
                 // 在這裡處理 Game 場景的載入完成邏輯
+                FadeManager.instance.SetParent("Canvas");
+                FadeManager.instance.FadeOut();
                 GameManager.instance.curProgressZombieList = new List<GameObject>();
                 GameManager.instance.curLevelId = 1;
                 GameManager.instance.curProgressId = 1;
+                GameManager.instance.bornParent = GameObject.Find("Borns");
+                GameManager.instance.victoryPanelObj = Instantiate(GameManager.instance.victoryPanelPre);
+                GameManager.instance.victoryPanelObj.SetActive(false);
+                GameManager.instance.failPanelObj = Instantiate(GameManager.instance.failPanelPre);
+                GameManager.instance.failPanelObj.SetActive(false);
                 StartCoroutine(GameManager.instance.CoLoadTable());
                 break;
             default:

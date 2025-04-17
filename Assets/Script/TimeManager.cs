@@ -18,11 +18,18 @@ public class TimeManager : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// ¼È°±¹CÀ¸
+    /// </summary>
     public static void PauseGame()
     {
+        
         Time.timeScale = 0;
     }
 
+    /// <summary>
+    /// «ì´_¹CÀ¸
+    /// </summary>
     public static void ResumeGame()
     {
         Time.timeScale = 1;

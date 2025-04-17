@@ -16,6 +16,6 @@ MonoBehaviour:
   - levelId: 1
     levelName: "\u95DC\u53611"
     progressPrecent:
+    - 0.2
     - 0.5
-    - 0.9
     - 1

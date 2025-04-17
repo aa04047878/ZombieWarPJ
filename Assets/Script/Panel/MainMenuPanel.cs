@@ -60,8 +60,17 @@ public class MainMenuPanel : BasePanel
 
     private void OnBtnAdventure()
     {
-        BaseUIManager.Instance.ClosePanel(UIConst.mainMenuPanel);
-        SceneControl.LoadScene("Game");
+        UserData userData = LocalConfig.LoadUserData(BaseManager.Instance.curUserName);
+
+        if (userData.level > 3)
+        {
+            Debug.Log($"目前只開放到第3關，敬請期待下次更新，謝謝!!!");
+            return;
+        }
+        SceneControl.LoadSceneAsync("Game");
+        FadeManager.instance.FadeIn();
+        FadeManager.instance.DarkBgStandby();
+        
     }
 
     private void OnBtnSetting()
