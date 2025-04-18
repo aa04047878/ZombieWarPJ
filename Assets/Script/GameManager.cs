@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     /// 陽光數量
     /// </summary>
     public int sunNum;
+    public ObjectPool<Sun> sunPool;
 
     #region 殭屍
     /// <summary>
@@ -50,10 +51,12 @@ public class GameManager : MonoBehaviour
     public int curProgressId;
     #endregion
 
+    #region 介面相關
     public GameObject victoryPanelPre;
     public GameObject victoryPanelObj;
     public GameObject failPanelPre;
     public GameObject failPanelObj;
+    #endregion
 
     // Start is called before the first frame update
 
@@ -75,6 +78,7 @@ public class GameManager : MonoBehaviour
 
         //victoryPanelPre = GameObject.Find("VictoryPanel");
         //failPanelPre = GameObject.Find("FailPanel");
+        sunPool = ObjectPool<Sun>.Instance;
         zombiePre = Resources.Load<GameObject>("Prefab/Zombie1");
         victoryPanelPre = Resources.Load<GameObject>("Prefab/Panel/Menu/VictoryPanel");
         failPanelPre = Resources.Load<GameObject>("Prefab/Panel/Menu/FailPanel");
@@ -235,7 +239,8 @@ public class GameManager : MonoBehaviour
                     //改變太陽數量
                     ChangeSunNum(25);
                     //點擊完後，太陽消失
-                    Destroy(hit.gameObject);
+                    //Destroy(hit.gameObject);
+                    sunPool.Recycle(hit.GetComponent<Sun>());
                 }
             }
         }
@@ -257,14 +262,17 @@ public class GameManager : MonoBehaviour
         //初始化太陽的位置
         float x = Random.Range(leftBottom.x + 30, rightTop.x - 30);
         Vector3 bornPos = new Vector3(x, rightTop.y, 0);
+        float y = Random.Range(leftBottom.y + 80, leftBottom.y + 30);
 
         //生成太陽
-        GameObject sun = Instantiate(sunPre, bornPos, Quaternion.identity);
+        //GameObject sun = Instantiate(sunPre, bornPos, Quaternion.identity);
+        Sun sun = sunPool.Spawn(bornPos, Quaternion.identity);
+        sun.ResetTimer();
         Debug.Log("生成太陽");
 
         //設定太陽的位置
-        float y = Random.Range(leftBottom.y + 80, leftBottom.y + 30);
-        sun.GetComponent<Sun>().SetTargetPos(new Vector3(bornPos.x, y, 0));
+        //sun.GetComponent<Sun>().SetTargetPos(new Vector3(bornPos.x, y, 0));
+        sun.SetTargetPos(new Vector3(bornPos.x, y, 0));
         Debug.Log("已設定好太陽位置");
     }
 
