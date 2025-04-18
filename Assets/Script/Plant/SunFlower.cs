@@ -15,11 +15,13 @@ public class SunFlower : Plant
     private float timer;
     public GameObject sunPrefab;
     private int sunNum;
+    public ObjectPool<Sun> sunPool;
     // Start is called before the first frame update
     override protected void Start()
     {
         base.Start();
         timer = 0;
+        sunPool = ObjectPool<Sun>.Instance;
     }
 
     // Update is called once per frame
@@ -54,7 +56,8 @@ public class SunFlower : Plant
     public void BornSun()
     {
         //生成太陽
-        GameObject sun =  Instantiate(sunPrefab);
+        //GameObject sun =  Instantiate(sunPrefab);
+        
         sunNum++;
         float randomX;
 
@@ -72,6 +75,11 @@ public class SunFlower : Plant
         float randomY = Random.Range(transform.position.y + 20, transform.position.y + 30);
 
         //設定太陽的位置
-        sun.transform.position = new Vector2(randomX, randomY);
+        //sun.transform.position = new Vector2(randomX, randomY);
+
+        Vector2 sunPos = new Vector2(randomX, randomY); ;
+        Sun sun = sunPool.Spawn(sunPos, Quaternion.identity);
+        sun.ResetTimer();
+        sun.transform.position = sunPos;
     }
 }

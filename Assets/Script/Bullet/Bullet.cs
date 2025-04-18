@@ -7,22 +7,39 @@ public class Bullet : MonoBehaviour
     /// <summary>
     /// 子彈的方向
     /// </summary>
-    public Vector3 direction;
+    [SerializeField , Header("子彈的方向")]
+    protected Vector3 direction;
     /// <summary>
     /// 子彈的速度
     /// </summary>
-    public float speed;
+    [SerializeField , Header("子彈的速度")]
+    protected float speed;
     /// <summary>
-    /// 傷害
+    /// 子彈的傷害
     /// </summary>
-    public float damage;
+    [SerializeField , Header("子彈的傷害")]
+    protected float damage;
+    /// <summary>
+    /// 子彈的存活時間
+    /// </summary>
+    [SerializeField , Header("存活時間")]
+    protected float existTime;
+    /// <summary>
+    /// 計時器
+    /// </summary>
+    protected float timer;
     public bool touchWoodCreate;
+    public ObjectPool<Bullet> bulletPool;
     //private bool isDestroyed;
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        timer = 0;
+        existTime = 10;
+        bulletPool = ObjectPool<Bullet>.Instance;
+
         //10秒後自動銷毀子彈(因為已超出畫面)
-        Destroy(gameObject, 10);
+        //Destroy(gameObject, 10);
         //訂閱事件
         //EventCenter.Instance.AddEventListener(EventType.eventGameVictory, GameOver);
     }
@@ -31,7 +48,18 @@ public class Bullet : MonoBehaviour
     protected virtual void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
+
+        timer += Time.deltaTime;
+        if (timer >= existTime)
+        {
+            bulletPool.Recycle(this);
+        }
     }
+
+    //private void OnDisable()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
     private void OnTriggerEnter2D(Collider2D hit)
     {
@@ -49,8 +77,14 @@ public class Bullet : MonoBehaviour
     public virtual void DestroyBullet()
     {
         //銷毀子彈
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        bulletPool.Recycle(this);
         //isDestroyed = true;
+    }
+
+    public void ResetTimer()
+    {
+        timer = 0;
     }
 
     //protected void GameOver()

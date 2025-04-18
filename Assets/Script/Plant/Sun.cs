@@ -13,18 +13,23 @@ public class Sun : MonoBehaviour
     /// </summary>
     private float timer;
     private Vector3 targetPos;
-
+    public ObjectPool<Sun> sunPool;
     private void OnEnable()
     {
         targetPos = Vector3.zero;
         Debug.Log("太陽位置初始化");
     }
 
+    //private void OnDisable()
+    //{
+    //    DontDestroyOnLoad(gameObject);
+    //}
+
     // Start is called before the first frame update
     void Start()
     {
         timer = 0;
-        
+        sunPool = ObjectPool<Sun>.Instance;
     }
 
     // Update is called once per frame
@@ -39,13 +44,19 @@ public class Sun : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= duration)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            sunPool.Recycle(this);
         }
     }
 
     public void SetTargetPos(Vector3 pos)
     {
         targetPos = pos;
+    }
+
+    public void ResetTimer()
+    {
+        timer = 0;
     }
 
     //private void OnMouseDown()

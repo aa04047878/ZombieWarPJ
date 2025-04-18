@@ -18,7 +18,11 @@ public class Peashooter : Plant
     public GameObject peaBulletPrefab;
 
     public Transform bulletPos;
-    
+    /// <summary>
+    /// 子彈物件池
+    /// </summary>
+    public ObjectPool<Bullet> bulletPool;
+
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -29,6 +33,7 @@ public class Peashooter : Plant
     {
         base.Start();
         timer = 0;
+        bulletPool = ObjectPool<Bullet>.Instance;
     }
 
     // Update is called once per frame
@@ -45,7 +50,9 @@ public class Peashooter : Plant
         {
             timer = 0;
             //生成子彈
-            GameObject curBullet =  Instantiate(peaBulletPrefab, bulletPos.position, Quaternion.identity);
+            //GameObject curBullet =  Instantiate(peaBulletPrefab, bulletPos.position, Quaternion.identity);
+            Bullet bullet =  bulletPool.Spawn(bulletPos.position, Quaternion.identity);
+            bullet.ResetTimer();
             ///設定子彈的父物件
             //curBullet.transform.parent = bulletPos;
         }
