@@ -33,3 +33,7 @@ MonoBehaviour:
     plantName: "\u5357\u74DC"
     Description: "\u5357\u74DC\u53EF\u4EE5\u5C0D\u6575\u4EBA\u9020\u6210\u81F4\u547D\u50B7\u5BB3"
     cardPrefab: {fileID: 4459462177347947783, guid: 047451e4d6ce0344f963be629a570271, type: 3}
+  - plantId: 5
+    plantName: "\u7D2B\u8272\u8611\u83C7"
+    Description: "\u7D2B\u8272\u8611\u83C7\u6703\u88FD\u9020\u51FA\u5C0F\u8611\u83C7\uFF0C\u53EF\u5C0D\u6575\u4EBA\u9020\u6210\u50B7\u5BB3"
+    cardPrefab: {fileID: 4404682992209774022, guid: 89d3a9243a6c2ee47b81f4f9c44e2a00, type: 3}

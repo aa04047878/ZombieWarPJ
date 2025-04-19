@@ -30,6 +30,7 @@ public class Bullet : MonoBehaviour
     protected float timer;
     public bool touchWoodCreate;
     public ObjectPool<Bullet> bulletPool;
+
     //private bool isDestroyed;
     // Start is called before the first frame update
     protected virtual void Start()
@@ -37,7 +38,7 @@ public class Bullet : MonoBehaviour
         timer = 0;
         existTime = 10;
         bulletPool = ObjectPool<Bullet>.Instance;
-
+        
         //10笆綪反紆(禬礶)
         //Destroy(gameObject, 10);
         //璹綷ㄆン
@@ -56,10 +57,17 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    //private void OnDisable()
-    //{
-    //    DontDestroyOnLoad(gameObject);
-    //}
+    private void OnEnable()
+    {
+        EventCenter.Instance.AddEventListener(EventType.eventGameVictory, DestroyBullet);
+        EventCenter.Instance.AddEventListener(EventType.eventGameFail, DestroyBullet);
+    }
+
+    private void OnDisable()
+    {
+        EventCenter.Instance.RemoveEventListener(EventType.eventGameVictory, DestroyBullet);
+        EventCenter.Instance.RemoveEventListener(EventType.eventGameFail, DestroyBullet);
+    }
 
     private void OnTriggerEnter2D(Collider2D hit)
     {
@@ -74,6 +82,9 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 瘆胊紆
+    /// </summary>
     public virtual void DestroyBullet()
     {
         //綪反紆
@@ -87,19 +98,5 @@ public class Bullet : MonoBehaviour
         timer = 0;
     }
 
-    //protected void GameOver()
-    //{
-    //    //笴栏挡綪反紆
-    //    Destroy(gameObject);
-    //}
-
-    //protected void OnTimeDestroy()
-    //{
-    //    if (isDestroyed)
-    //        return;
-
-    //    //綪反紆
-    //    Destroy(gameObject);
-    //    isDestroyed = true;
-    //}
+    
 }
