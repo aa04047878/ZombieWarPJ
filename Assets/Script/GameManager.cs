@@ -143,6 +143,8 @@ public class GameManager : MonoBehaviour
             UserData userData = LocalConfig.LoadUserData(BaseManager.Instance.curUserName);
             userData.level++;
             LocalConfig.SaveUserData(userData);
+
+            //¼È°±¹CÀ¸
             TimeManager.PauseGame();
             return;
         }
