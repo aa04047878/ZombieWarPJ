@@ -73,7 +73,7 @@ public class Bullet : MonoBehaviour
     {
         if (hit.tag == "Zombie")
         {
-            Debug.Log($"打到怪物 : {hit.name}");
+            //Debug.Log($"打到怪物 : {hit.name}");
             //取得Zombie腳本
             ZombieNormal zombie = hit.GetComponent<ZombieNormal>();
             //呼叫Zombie腳本的ChangeHealth方法

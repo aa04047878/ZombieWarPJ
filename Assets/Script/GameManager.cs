@@ -34,6 +34,13 @@ public class GameManager : MonoBehaviour
     /// 當前波次剩餘殭屍數量
     /// </summary>
     public List<GameObject> curProgressZombieList;
+    public int curKillZombieCount;
+    public List<int> dieZombieIdList;
+    public Queue<int> killCountResult;
+    /// <summary>
+    /// 當前波次的殭屍總數
+    /// </summary>
+    public int curZombieTotalNum;
     #endregion
 
     #region 關卡相關
@@ -78,6 +85,9 @@ public class GameManager : MonoBehaviour
 
         //victoryPanelPre = GameObject.Find("VictoryPanel");
         //failPanelPre = GameObject.Find("FailPanel");
+        //curKillZombieCount = 0;
+        //killCountResult = new Queue<int>();
+        //dieZombieIdList = new List<int>();
         sunPool = ObjectPool<Sun>.Instance;
         zombiePre = Resources.Load<GameObject>("Prefab/Zombie1");
         victoryPanelPre = Resources.Load<GameObject>("Prefab/Panel/Menu/VictoryPanel");
@@ -91,6 +101,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         ClickSun();
+    }
+
+    public void AddIdList(int id)
+    {
+        dieZombieIdList.Add(id);
     }
 
     /// <summary>
@@ -123,7 +138,12 @@ public class GameManager : MonoBehaviour
             LevelItem levelItem = levelData.levelDataList[i];
             if (levelItem.progressId >= curProgressId)
             {
-                canCreateNum++;       
+                canCreateNum++;
+            }
+
+            if (levelItem.progressId == curProgressId)
+            {
+                curZombieTotalNum++;
             }
         }
 
@@ -168,6 +188,8 @@ public class GameManager : MonoBehaviour
         GameObject zombiePre = Resources.Load<GameObject>($"Prefab/Zombie{levelItem.zombieType}");
         //生成殭屍
         GameObject zombie = Instantiate(zombiePre);
+        //設定Id
+        zombie.GetComponent<ZombieNormal>().SetId(levelItem.id);
         //設定父物件
         Transform bornLine = bornParent.transform.Find($"Born{levelItem.bornPos}");
         zombie.transform.parent = bornLine;
@@ -205,22 +227,47 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ZombieDie(GameObject gameObject)
+    public void ZombieDie(GameObject gameObject, int dieId)
     {
         //殭屍死後，減少當前殭屍數量
-        if (curProgressZombieList.Contains(gameObject))
+        //if (curProgressZombieList.Contains(gameObject))
+        //{
+        //    curProgressZombieList.Remove(gameObject);
+        //}
+
+        foreach (int id in dieZombieIdList)
         {
-            curProgressZombieList.Remove(gameObject);
+            if (dieId == id)
+            {
+                curProgressZombieList.Remove(gameObject);
+            }
         }
+
+        
 
         // 殭屍死後，更新進度條介面
         UIManager.instance.UpdateProgressPanel();
 
         //當前殭屍都死了，則進入下一波
-        if (curProgressZombieList.Count == 0)
+        //if (curProgressZombieList.Count == 0)
+        //{
+        //    //curProgressZombieList.Clear();
+        //    //下一波
+        //    curProgressId++;
+        //    curKillZombieCount = 0;
+        //    killCountResult.Clear();
+        //    Debug.Log($"當前波次 : {curProgressId}");
+        //    TableCreateZombie();
+        //}
+
+        Debug.Log($"curZombieTotalNum : {curZombieTotalNum}");
+        if (curZombieTotalNum == 0)
         {
+            //curProgressZombieList.Clear();
             //下一波
             curProgressId++;
+            curKillZombieCount = 0;
+            killCountResult.Clear();
             Debug.Log($"當前波次 : {curProgressId}");
             TableCreateZombie();
         }
@@ -270,12 +317,12 @@ public class GameManager : MonoBehaviour
         //GameObject sun = Instantiate(sunPre, bornPos, Quaternion.identity);
         Sun sun = sunPool.Spawn(bornPos, Quaternion.identity);
         sun.ResetTimer();
-        Debug.Log("生成太陽");
+        //Debug.Log("生成太陽");
 
         //設定太陽的位置
         //sun.GetComponent<Sun>().SetTargetPos(new Vector3(bornPos.x, y, 0));
         sun.SetTargetPos(new Vector3(bornPos.x, y, 0));
-        Debug.Log("已設定好太陽位置");
+        //Debug.Log("已設定好太陽位置");
     }
 
     /// <summary>
@@ -320,6 +367,8 @@ public class GameManager : MonoBehaviour
     public void GameReallyStart()
     {
         gameStart = true;
+        //sunNum = 0;
+        
         TableCreateZombie();
         InvokeRepeating("CreateSunDown", 3, 3);
         SoundManager.instance.PlayBGM(Globals.BGM1);

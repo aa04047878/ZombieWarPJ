@@ -95,6 +95,12 @@ public class SceneControl : MonoBehaviour
                 GameManager.instance.curProgressZombieList = new List<GameObject>();
                 GameManager.instance.curLevelId = 1;
                 GameManager.instance.curProgressId = 1;
+                GameManager.instance.sunNum = 0;
+                GameManager.instance.curKillZombieCount = 0;
+                GameManager.instance.killCountResult = new Queue<int>();
+                GameManager.instance.curProgressZombieList = new List<GameObject>();
+                GameManager.instance.dieZombieIdList = new List<int>();
+                GameManager.instance.killCountResult = new Queue<int>();
                 GameManager.instance.bornParent = GameObject.Find("Borns");
                 GameManager.instance.victoryPanelObj = Instantiate(GameManager.instance.victoryPanelPre);
                 GameManager.instance.victoryPanelObj.SetActive(false);

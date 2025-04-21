@@ -27,7 +27,7 @@ public class Sun : MonoBehaviour
     private void OnEnable()
     {
         targetPos = Vector3.zero;
-        Debug.Log("太陽位置初始化");
+        //Debug.Log("太陽位置初始化");
         EventCenter.Instance.AddEventListener(EventType.eventGameVictory, DestroySun);
         EventCenter.Instance.AddEventListener(EventType.eventGameFail, DestroySun);
     }

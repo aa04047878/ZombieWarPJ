@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: LevelInfo
   m_EditorClassIdentifier: 
   levelInfoList:
-  - levelId: 2
-    levelName: "\u95DC\u53612"
+  - levelId: 3
+    levelName: "\u95DC\u53613"
     progressPrecent:
     - 0.2
     - 0.5

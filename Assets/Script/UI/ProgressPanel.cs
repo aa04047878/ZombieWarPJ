@@ -38,8 +38,8 @@ public class ProgressPanel : MonoBehaviour
         progress.GetComponent<Image>().fillAmount = per;
         //進度條最右邊的位置 = 背景的世界座標位置 + 背景的寬度的一半
         float originPosX = Bg.GetComponent<RectTransform>().position.x + Bg.GetComponent<RectTransform>().sizeDelta.x / 2;
-        Debug.Log($"Bg.position.x : {Bg.GetComponent<RectTransform>().position.x} , Bg.sizeDelta.x / 2 : {Bg.GetComponent<RectTransform>().sizeDelta.x / 2}");
-        Debug.Log($"originPosX : {originPosX}");
+        //Debug.Log($"Bg.position.x : {Bg.GetComponent<RectTransform>().position.x} , Bg.sizeDelta.x / 2 : {Bg.GetComponent<RectTransform>().sizeDelta.x / 2}");
+        //Debug.Log($"originPosX : {originPosX}");
         //進度條寬度 = 背景的寬度 
         float width = Bg.GetComponent<RectTransform>().sizeDelta.x;
         //進度條頭部的偏移量

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ZombieNormal : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class ZombieNormal : MonoBehaviour
     private float lostHeadHealth;
     private Animator ani;
     private const string walk = "Walk";
+    public int id;
     // Start is called before the first frame update
     void Start()
     {
@@ -140,7 +142,7 @@ public class ZombieNormal : MonoBehaviour
     /// <param name="num"></param>
     public void ChangeHealth(float num)
     {
-        Debug.Log($"受到傷害 : {num}");
+        //Debug.Log($"受到傷害 : {num}");
         //改變血量後，當前血量介於0 ~ 總血量之間;
         currentHealth = Mathf.Clamp(currentHealth + num, 0, health);
         if (currentHealth < lostHeadHealth)
@@ -158,6 +160,16 @@ public class ZombieNormal : MonoBehaviour
         {
             ani.SetTrigger("Die");
             isDie = true;
+
+            if (GameManager.instance.dieZombieIdList.Contains(id))
+            {
+                return;
+            }
+
+            GameManager.instance.curKillZombieCount++;
+            int count = GameManager.instance.curKillZombieCount;
+            GameManager.instance.killCountResult.Enqueue(count);
+            GameManager.instance.AddIdList(id);
         }
     }
 
@@ -167,7 +179,9 @@ public class ZombieNormal : MonoBehaviour
     public void DieAinOver()
     {
         ani.enabled = false;
-        GameManager.instance.ZombieDie(gameObject);
+        //Debug.Log("測試殭屍死幾次");
+        GameManager.instance.curZombieTotalNum--;
+        GameManager.instance.ZombieDie(gameObject, id);
         Destroy(gameObject);
     }
 
@@ -197,5 +211,10 @@ public class ZombieNormal : MonoBehaviour
         }
         currentHealth = health;
         lostHeadHealth = health / 2;
+    }
+
+    public void SetId(int id)
+    {
+        this.id = id;
     }
 }
