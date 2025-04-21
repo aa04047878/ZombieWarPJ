@@ -142,6 +142,9 @@ public class ZombieNormal : MonoBehaviour
     /// <param name="num"></param>
     public void ChangeHealth(float num)
     {
+        if (currentHealth <= 0) //A子彈已讓我死掉，B子彈不能再調用此方法，否則動畫會再撥一次
+            return;
+
         //Debug.Log($"受到傷害 : {num}");
         //改變血量後，當前血量介於0 ~ 總血量之間;
         currentHealth = Mathf.Clamp(currentHealth + num, 0, health);

@@ -67,7 +67,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5931\u6557 !!"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9897a04655fb48d4a921e7a3a4072829, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc31696c03fbb924a841f08356f3629f, type: 2}
   m_sharedMaterial: {fileID: -2345600723371538006, guid: 7a54cb6bc693cee4b9ad0e5b4d34989e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -470,7 +470,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u8FD4\u56DE\u9078\u55AE"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9897a04655fb48d4a921e7a3a4072829, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc31696c03fbb924a841f08356f3629f, type: 2}
   m_sharedMaterial: {fileID: -2345600723371538006, guid: 7a54cb6bc693cee4b9ad0e5b4d34989e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

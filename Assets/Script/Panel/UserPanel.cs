@@ -75,7 +75,8 @@ public class UserPanel : BasePanel
             Debug.Log("請選擇用戶");
             BasePanel basePanel =  BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
-            promptMessagePanel.txtTitle.text = "請選擇用戶";
+            promptMessagePanel.SetMessageText("請選擇用戶");
+            //promptMessagePanel.txtTitle.text = "請選擇用戶";
         }
     }
 
@@ -86,7 +87,8 @@ public class UserPanel : BasePanel
             Debug.Log("請選擇用戶");
             BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
-            promptMessagePanel.txtTitle.text = "請選擇用戶";
+            promptMessagePanel.SetMessageText("請選擇用戶");
+            //promptMessagePanel.txtTitle.text = "請選擇用戶";
             return;
         }
 
@@ -101,7 +103,8 @@ public class UserPanel : BasePanel
             Debug.Log("請選擇要刪除的用戶");
             BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
-            promptMessagePanel.txtTitle.text = "請選擇要刪除的用戶";
+            promptMessagePanel.SetMessageText("請選擇要刪除的用戶");
+            //promptMessagePanel.txtTitle.text = "請選擇要刪除的用戶";
             return;
         }
 
@@ -129,7 +132,8 @@ public class UserPanel : BasePanel
             Debug.Log("請選擇要變更名子的用戶");
             BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
-            promptMessagePanel.txtTitle.text = "請選擇要變更名子的用戶";
+            promptMessagePanel.SetMessageText("請選擇要變更名子的用戶");
+            //promptMessagePanel.txtTitle.text = "請選擇要變更名子的用戶";
             return;
         }
         GameObject modifyUserPanel = BaseUIManager.Instance.OpenPanel(UIConst.reNameUserPanel).gameObject;

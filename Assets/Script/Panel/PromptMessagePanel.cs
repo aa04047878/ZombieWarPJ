@@ -25,4 +25,9 @@ public class PromptMessagePanel : BasePanel
     {
         BaseUIManager.Instance.ClosePanel(UIConst.promptMessagePanel);
     }
+
+    public void SetMessageText(string newMessage)
+    {
+        txtTitle.text = newMessage;
+    }
 }
