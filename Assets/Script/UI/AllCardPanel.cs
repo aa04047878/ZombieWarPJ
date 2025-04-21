@@ -57,5 +57,6 @@ public class AllCardPanel : MonoBehaviour
         transform.DOMove(newWorldPosition, 2f);
         //發送遊戲開始通知
         EventCenter.Instance.EventTrigger(EventType.eventGameStart);
+        UIManager.instance.OpenBeam();
     }
 }

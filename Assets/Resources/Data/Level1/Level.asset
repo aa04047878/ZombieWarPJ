@@ -40,31 +40,31 @@ MonoBehaviour:
   - id: 5
     levelId: 1
     progressId: 2
-    createTime: 3
+    createTime: 2
     zombieType: 1
     bornPos: 4
   - id: 6
     levelId: 1
     progressId: 2
-    createTime: 5
+    createTime: 6
     zombieType: 1
     bornPos: 3
   - id: 7
     levelId: 1
     progressId: 2
-    createTime: 9
+    createTime: 10
     zombieType: 1
     bornPos: 2
   - id: 8
     levelId: 1
     progressId: 2
-    createTime: 9
+    createTime: 14
     zombieType: 1
     bornPos: 1
   - id: 9
     levelId: 1
     progressId: 3
-    createTime: 3
+    createTime: 1
     zombieType: 1
     bornPos: 1
   - id: 10
@@ -76,54 +76,54 @@ MonoBehaviour:
   - id: 11
     levelId: 1
     progressId: 3
-    createTime: 5
+    createTime: 7
     zombieType: 1
     bornPos: 3
   - id: 12
     levelId: 1
     progressId: 3
-    createTime: 6
+    createTime: 10
     zombieType: 1
     bornPos: 4
   - id: 13
     levelId: 1
     progressId: 3
-    createTime: 7
+    createTime: 13
     zombieType: 1
     bornPos: 2
   - id: 14
     levelId: 1
     progressId: 3
-    createTime: 8
+    createTime: 16
     zombieType: 1
     bornPos: 3
   - id: 15
     levelId: 1
     progressId: 3
-    createTime: 9
+    createTime: 19
     zombieType: 1
     bornPos: 4
   - id: 16
     levelId: 1
     progressId: 3
-    createTime: 10
+    createTime: 22
     zombieType: 1
     bornPos: 1
   - id: 17
     levelId: 1
     progressId: 3
-    createTime: 11
+    createTime: 25
     zombieType: 1
     bornPos: 2
   - id: 18
     levelId: 1
     progressId: 3
-    createTime: 12
+    createTime: 28
     zombieType: 1
     bornPos: 3
   - id: 19
     levelId: 1
     progressId: 3
-    createTime: 13
+    createTime: 31
     zombieType: 1
     bornPos: 4

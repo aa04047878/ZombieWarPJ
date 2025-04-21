@@ -128,7 +128,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             return;
         }
         //開始拖曳時執行(滑鼠點下的那一瞬間，點擊此物體)
-        Debug.Log("開始拖曳時執行(滑鼠點下的那一瞬間)" + Data.ToString());
+        //Debug.Log("開始拖曳時執行(滑鼠點下的那一瞬間)" + Data.ToString());
 
         curGameObject = Instantiate(objectprefab);
         //播放點擊卡片的聲音
@@ -147,7 +147,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         }
 
         //正在拖曳時執行(滑鼠按住不放)
-        Debug.Log("正在拖曳時執行(滑鼠按住不放)");
+        //Debug.Log("正在拖曳時執行(滑鼠按住不放)");
         if (curGameObject == null)
             return;
         
@@ -175,7 +175,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             return;
         }
         //結束拖曳時執行(滑鼠放開時執行)
-        Debug.Log("結束拖曳時執行(滑鼠放開時執行)");
+        //Debug.Log("結束拖曳時執行(滑鼠放開時執行)");
         //檢查滑鼠位置的世界座標(curGameObject的位置)是否有碰撞體
         Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         foreach (var collider in colliders)
@@ -186,7 +186,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 //且地板上沒有其他物件
                 if (collider.transform.childCount == 0)
                 {
-                    Debug.Log("碰撞到的物件名稱：" + collider.name);
+                    //Debug.Log("碰撞到的物件名稱：" + collider.name);
                     //執行放置卡片
                     curGameObject.transform.position = collider.transform.position;
                     //播放種植音效
@@ -207,16 +207,18 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 else
                 {
                     //地板上已有其他物件，執行銷毀卡片
-                    Debug.Log("地板上已有其他物件，刪除卡片");
+                    //Debug.Log("地板上已有其他物件，刪除卡片");
                     Destroy(curGameObject);
+                    break;
                     //curGameObject = null;
                 }
             }
             else
             {
                 //沒有碰撞到地板，執行銷毀卡片
-                Debug.Log("沒有碰撞Tag為Land，刪除卡片");
+                //Debug.Log("沒有碰撞Tag為Land，刪除卡片");
                 Destroy(curGameObject);
+                break;
                 //curGameObject = null;
             }
 
@@ -225,7 +227,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         //什麼都沒碰到，執行銷毀卡片
         if (colliders.Length == 0)
         {
-            Debug.Log("什麼都沒碰到，刪除卡片");
+            //Debug.Log("什麼都沒碰到，刪除卡片");
             Destroy(curGameObject);
             //curGameObject = null;
         }
@@ -288,13 +290,13 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     public void AddCard(GameObject gameObject)
     {
         ChooseCardPanel chooseCardPanel = UIManager.instance.chooseCardPanel;
-        Debug.Log($"顯示位置 : {chooseCardPanel.transform.position}");
+        //Debug.Log($"顯示位置 : {chooseCardPanel.transform.position}");
         int curIndex = chooseCardPanel.chooseCardList.Count;
-        Debug.Log($"當前選卡欄位數量 : {curIndex}");
+        //Debug.Log($"當前選卡欄位數量 : {curIndex}");
         //如果選卡欄位已滿，則不執行
         if (curIndex >= 8)
         {
-            Debug.Log("選卡欄位已滿，無法添加卡片");
+            //Debug.Log("選卡欄位已滿，無法添加卡片");
             return;
         }
 
@@ -310,7 +312,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         useCard.GetComponent<Card>().plantInfo = plantInfo;
         //移動到目標位置
         Transform targetObject = chooseCardPanel.cards.transform.Find("BeforeCard" + curIndex);
-        Debug.Log("目標位置：" + targetObject.name);
+        //Debug.Log("目標位置：" + targetObject.name);
         useCard.GetComponent<Card>().isMoving = true;
         useCard.GetComponent<Card>().hasUse = true;
         chooseCardPanel.chooseCardList.Add(useCard);

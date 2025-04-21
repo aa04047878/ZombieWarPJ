@@ -57,7 +57,7 @@ public class Startup
         }
 
         //把創建出來的ScriptableObject保存到指定路徑 (將 LevelData 存儲為 Unity 資產（.asset 文件))
-        AssetDatabase.CreateAsset(levelData, "Assets/Resources/" + assetName + ".asset");
+        AssetDatabase.CreateAsset(levelData, "Assets/Resources/Data/Level1/" + assetName + ".asset");
         //保存資產變更
         AssetDatabase.SaveAssets();
         // 刷新資產數據庫，讓變更即時反映在編輯器中(覆蓋原本資料)
