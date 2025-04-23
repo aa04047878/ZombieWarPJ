@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ebe03aa75bd4f14e99188563d14c52e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
+  health: 10
   interval: 2
   timer: 0
   peaBulletPrefab: {fileID: 3198428007663464909, guid: 981914b0efa24d04e96d70fe7cec6972, type: 3}

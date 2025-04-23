@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
     /// </summary>
     protected float timer;
     public bool touchWoodCreate;
-    public ObjectPool<Bullet> bulletPool;
+    //public ObjectPool<Bullet> purpleBulletPool;
 
     //private bool isDestroyed;
     // Start is called before the first frame update
@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
     {
         timer = 0;
         existTime = 10;
-        bulletPool = ObjectPool<Bullet>.Instance;
+        //purpleBulletPool = ObjectPool<Bullet>.Instance;
         
         //10秒後自動銷毀子彈(因為已超出畫面)
         //Destroy(gameObject, 10);
@@ -49,25 +49,10 @@ public class Bullet : MonoBehaviour
     protected virtual void Update()
     {
         transform.position += direction * speed * Time.deltaTime;
-
         timer += Time.deltaTime;
-        if (timer >= existTime)
-        {
-            bulletPool.Recycle(this);
-        }
     }
 
-    private void OnEnable()
-    {
-        EventCenter.Instance.AddEventListener(EventType.eventGameVictory, DestroyBullet);
-        EventCenter.Instance.AddEventListener(EventType.eventGameFail, DestroyBullet);
-    }
-
-    private void OnDisable()
-    {
-        EventCenter.Instance.RemoveEventListener(EventType.eventGameVictory, DestroyBullet);
-        EventCenter.Instance.RemoveEventListener(EventType.eventGameFail, DestroyBullet);
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D hit)
     {
@@ -89,7 +74,7 @@ public class Bullet : MonoBehaviour
     {
         //銷毀子彈
         //Destroy(gameObject);
-        bulletPool.Recycle(this);
+        //purpleBulletPool.Recycle(this);
         //isDestroyed = true;
     }
 

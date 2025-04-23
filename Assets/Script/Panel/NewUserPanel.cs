@@ -21,6 +21,7 @@ public class NewUserPanel : BasePanel
     protected override void Start()
     {
         base.Start();
+        inputString = "";
         btnOk.onClick.AddListener(() => OnBtnOk());
         btnCancel.onClick.AddListener(() => OnBtnCancel());
         inputField.onValueChanged.AddListener((value) => OnInputFieldChange(value));
@@ -31,7 +32,10 @@ public class NewUserPanel : BasePanel
         //檢查用戶名稱是否為空
         if (inputString.Trim() == "")
         {
-            Debug.Log("用戶名稱不能為空");
+            Debug.Log("請輸入名子，謝謝!!!");
+            BasePanel panel =  BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
+            PromptMessagePanel promptMessagePanel = panel as PromptMessagePanel;
+            promptMessagePanel.SetMessageText("請輸入名子，謝謝!!!");
             return;
         }
 
@@ -39,6 +43,9 @@ public class NewUserPanel : BasePanel
         if (LocalConfig.LoadUserData(inputString) != null)
         {
             Debug.Log("用戶名稱已存在");
+            BasePanel panel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
+            PromptMessagePanel promptMessagePanel = panel as PromptMessagePanel;
+            promptMessagePanel.SetMessageText("用戶名稱已存在");
             return;
         }
 
@@ -56,7 +63,10 @@ public class NewUserPanel : BasePanel
     {
         if (BaseManager.Instance.curUserName == "")
         {
-            Debug.Log("用戶名稱不能為空");
+            Debug.Log("請輸入名子，謝謝!!!");
+            BasePanel panel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
+            PromptMessagePanel promptMessagePanel = panel as PromptMessagePanel;
+            promptMessagePanel.SetMessageText("請輸入名子，謝謝!!!");
             return;
         }
 

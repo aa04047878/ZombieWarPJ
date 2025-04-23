@@ -169,8 +169,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectprefab: {fileID: 4613984749918012932, guid: 50904e3aa2fb7eb41b9171f6fd72d15a, type: 3}
   curGameObject: {fileID: 0}
-  useSun: 100
-  waitTime: 2
+  useSun: 300
+  waitTime: 6
   plantInfo:
     plantId: 0
     plantName: 
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 300
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1542a785d4d7c7f438e52cb587f757ee, type: 2}
   m_sharedMaterial: {fileID: 6209801669896400032, guid: 1542a785d4d7c7f438e52cb587f757ee, type: 2}

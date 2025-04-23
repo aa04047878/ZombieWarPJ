@@ -174,10 +174,32 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         {
             return;
         }
+
         //結束拖曳時執行(滑鼠放開時執行)
         //Debug.Log("結束拖曳時執行(滑鼠放開時執行)");
         //檢查滑鼠位置的世界座標(curGameObject的位置)是否有碰撞體
+        bool haveLand = false;
         Collider2D[] colliders = Physics2D.OverlapPointAll(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        //什麼都沒碰到，執行銷毀卡片
+        if (colliders.Length == 0)
+        {
+            //Debug.Log("什麼都沒碰到，刪除卡片");
+            Destroy(curGameObject);
+            return;
+            //curGameObject = null;
+        }
+
+        //檢查是否有地板
+        foreach (var collider in colliders)
+        {
+            if (collider.tag == "Land")
+                haveLand = true;
+        }
+
+        //如果沒有地板，則不執行
+        if (!haveLand)
+            return;
+
         foreach (var collider in colliders)
         {
             //屬標碰到的碰撞體有地板
@@ -213,23 +235,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                     //curGameObject = null;
                 }
             }
-            else
-            {
-                //沒有碰撞到地板，執行銷毀卡片
-                //Debug.Log("沒有碰撞Tag為Land，刪除卡片");
-                Destroy(curGameObject);
-                break;
-                //curGameObject = null;
-            }
-
-        }
-
-        //什麼都沒碰到，執行銷毀卡片
-        if (colliders.Length == 0)
-        {
-            //Debug.Log("什麼都沒碰到，刪除卡片");
-            Destroy(curGameObject);
-            //curGameObject = null;
         }
     }
 

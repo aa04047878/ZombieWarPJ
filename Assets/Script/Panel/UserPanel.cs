@@ -154,10 +154,10 @@ public class UserPanel : BasePanel
     private void RefreshMainPanel()
     {
         //先把原本所有的userNameItem全部砍掉
-        Debug.Log($"顯示長度 : {scroll.content}");
+        //Debug.Log($"顯示長度 : {scroll.content}");
         foreach (Transform child in scroll.content)
         {
-            Debug.Log(child);
+            //Debug.Log(child);
             Destroy(child.gameObject);
         }
 

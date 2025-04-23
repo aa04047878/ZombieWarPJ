@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b843587b6fef36343a153d1f40048d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 10
   readyTime: 3
   sunPrefab: {fileID: 1052292648016404435, guid: 728ac38e912a699478f8f3c010839c5a, type: 3}
 --- !u!61 &8240178356567351067
