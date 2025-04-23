@@ -1558,7 +1558,7 @@ GameObject:
   - component: {fileID: 4522330118560116195}
   m_Layer: 0
   m_Name: PurpleMushroom
-  m_TagString: Untagged
+  m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1592,7 +1592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99194f547224ccc4bb3dffea34046f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 60
+  health: 10
   interval: 2
   timer: 0
   bulletPrefab: {fileID: 3380845193310849554, guid: d3614f2a4edba5244893ab2b3f76e437, type: 3}

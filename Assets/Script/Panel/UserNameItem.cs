@@ -18,16 +18,17 @@ public class UserNameItem : MonoBehaviour
     {
         txt = transform.Find("Name").GetComponent<TMP_Text>();
         select = transform.Find("Select").gameObject;
-        Debug.Log($"select.name : {select.name}");
+        //Debug.Log($"select.name : {select.name}");
         btn = GetComponent<Button>();
         itemType = "Name";
+        select.SetActive(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         btn.onClick.AddListener(() => OnBtnNameItem());
-        select.SetActive(false);
+       
         
     }
 

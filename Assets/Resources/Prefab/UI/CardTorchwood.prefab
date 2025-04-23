@@ -169,8 +169,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectprefab: {fileID: 3332666012345509444, guid: cddd09ca8ef704148908d03dabbfa31b, type: 3}
   curGameObject: {fileID: 0}
-  useSun: 175
-  waitTime: 8
+  useSun: 200
+  waitTime: 4
+  plantInfo:
+    plantId: 0
+    plantName: 
+    Description: 
+    cardPrefab: {fileID: 0}
+  hasUse: 0
+  hasLook: 0
+  isMoving: 0
+  hasStart: 0
 --- !u!1 &5145716905939729985
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +245,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 175
+  m_text: 200
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1542a785d4d7c7f438e52cb587f757ee, type: 2}
   m_sharedMaterial: {fileID: 6209801669896400032, guid: 1542a785d4d7c7f438e52cb587f757ee, type: 2}

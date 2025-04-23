@@ -197,16 +197,16 @@ public class ZombieNormal : MonoBehaviour
         switch (userData.level)
         {
             case 1:
-                health = 75;
-                damage = 20;
+                health = 60;
+                //damage = 20;
                 break;
             case 2:
-                health = 100;
-                damage = 30;
+                health = 90;
+                //damage = 30;
                 break;
             case 3:
-                health = 150;
-                damage = 40;
+                health = 120;
+                //damage = 40;
                 break;
             default:
                 Debug.Log("目前沒還有此關卡");

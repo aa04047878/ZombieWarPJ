@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,19 +9,25 @@ public class ProgressPanel : MonoBehaviour
 {
     private GameObject progress;
     private GameObject head;
-    private GameObject levelTest;
+    //private GameObject levelTest;
     private GameObject Bg;
     private GameObject flag;
     private GameObject flagPrefab;
+    private TMP_Text txtLevel;
     // Start is called before the first frame update
     void Start()
     {
         progress = transform.Find("Progress").gameObject;
         head = transform.Find("Head").gameObject;
-        levelTest = transform.Find("LevelTest").gameObject;
+        //levelTest = transform.Find("LevelTest").gameObject;
         Bg = transform.Find("Bg").gameObject;
         flag = transform.Find("Flag").gameObject;
         flagPrefab = Resources.Load<GameObject>("Prefab/Flag");
+        txtLevel = UITool.GetUIComponent<TMP_Text>(gameObject, "TxtLevel");
+
+        UserData userData = LocalConfig.LoadUserData(BaseManager.Instance.curUserName);
+        txtLevel.text = userData.level.ToString();
+
         //SetPrecent(0.5f);
         //SetFlagPercent(0.5f);
     }

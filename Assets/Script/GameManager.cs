@@ -410,10 +410,11 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         //failPanelPre.GetComponent<BasePanel>().OpenPanel(UIConst.victoryPanelPre);
-        failPanelObj.SetActive(true);
         StopAllCoroutines();
-        //curProgressZombieList.Clear();
+        CancelInvoke("CreateSunDown");
+        curProgressZombieList.Clear();
         gameStart = false;
+        failPanelObj.SetActive(true);
         TimeManager.PauseGame();
     }
 }

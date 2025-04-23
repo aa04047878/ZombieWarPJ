@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 1, y: 0, z: 0}
   speed: 100
-  damage: 15
+  damage: 10
   existTime: 0
   touchWoodCreate: 0
 --- !u!61 &4808659145981834288

@@ -195,5 +195,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 1, y: 0, z: 0}
   speed: 200
-  damage: 30
+  damage: 20
+  existTime: 0
   touchWoodCreate: 0

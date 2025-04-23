@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Torchwood : Plant
 {
-    private GameObject fireBulletPre;
+    //private GameObject fireBulletPre;
+    public ObjectPool<FireBullet> fireBulletPool;
 
     protected override void Start()
     {
         base.Start();
-        fireBulletPre = Resources.Load<GameObject>("Prefab/FireBullet");
+        fireBulletPool = ObjectPool<FireBullet>.Instance;
+        //fireBulletPre = Resources.Load<GameObject>("Prefab/FireBullet");
     }
 
     protected override void Update()
@@ -20,7 +22,7 @@ public class Torchwood : Plant
 
     private void OnTriggerEnter2D(Collider2D hit)
     {
-        Debug.Log($"hit.name : {hit.name}");
+        //Debug.Log($"hit.name : {hit.name}");
         //碰到子彈，子彈會變成火焰子彈
         if (hit.tag == "Bullet")
         {
@@ -38,9 +40,14 @@ public class Torchwood : Plant
 
     private void CreateBullet(Vector3 bornPos)
     {
-        GameObject fireBullet = Instantiate(fireBulletPre, bornPos, Quaternion.identity);
-        fireBullet.transform.position = bornPos;
-        fireBullet.transform.parent = transform.parent;
+        //GameObject fireBullet = Instantiate(fireBulletPre, bornPos, Quaternion.identity);
+        //fireBullet.transform.position = bornPos;
+        //fireBullet.transform.parent = transform.parent;
+        //fireBullet.GetComponent<Bullet>().touchWoodCreate = true;
+        
+        FireBullet fireBullet =  fireBulletPool.Spawn(bornPos, Quaternion.identity);
+        fireBullet.ResetTimer();
+        //fireBullet.transform.parent = transform.parent;
         fireBullet.GetComponent<Bullet>().touchWoodCreate = true;
     }
 }
