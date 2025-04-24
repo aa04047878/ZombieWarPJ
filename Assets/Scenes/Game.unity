@@ -240,7 +240,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u4E00\u8D77\u6416\u6EFE\u5427"
+  m_text: "\u62B5\u64CB\u6BAD\u5C4D\u5165\u4FB5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1542a785d4d7c7f438e52cb587f757ee, type: 2}
   m_sharedMaterial: {fileID: 6209801669896400032, guid: 1542a785d4d7c7f438e52cb587f757ee, type: 2}
@@ -3457,6 +3457,7 @@ MonoBehaviour:
   bulletParent: {fileID: 0}
   purpleMushroomBulletParent: {fileID: 0}
   sunParent: {fileID: 0}
+  fireBulletParent: {fileID: 0}
 --- !u!4 &1131420870
 Transform:
   m_ObjectHideFlags: 0
@@ -5911,8 +5912,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 656872f2976e04d1cb389a9303fe6b78, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7471,10 +7472,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u9078\u64C7\u4F60\u7684\u690D\u7269"
+  m_text: "\u9078\u64C7\u4F60\u7684\u5925\u4F34"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 1542a785d4d7c7f438e52cb587f757ee, type: 2}
-  m_sharedMaterial: {fileID: 6209801669896400032, guid: 1542a785d4d7c7f438e52cb587f757ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fc31696c03fbb924a841f08356f3629f, type: 2}
+  m_sharedMaterial: {fileID: 7260372245807558315, guid: fc31696c03fbb924a841f08356f3629f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
