@@ -7,12 +7,13 @@ public class QuitMessagePanel : BasePanel
 {
     private Button btnOk;
     private Button btnCancel;
+    
     protected override void Awake()
     {
         base.Awake();
         btnOk = UITool.GetUIComponent<Button>(gameObject, "BtnOk");
         btnCancel = UITool.GetUIComponent<Button>(gameObject, "BtnCancel");
-       
+        
     }
 
     protected override void Start()
@@ -20,6 +21,7 @@ public class QuitMessagePanel : BasePanel
         base.Start();
         btnOk.onClick.AddListener(() => OnBtnOk());
         btnCancel.onClick.AddListener(() => OnBtnCancel());
+        
     }
 
     protected override void Update()
@@ -36,4 +38,6 @@ public class QuitMessagePanel : BasePanel
     {
         BaseUIManager.Instance.ClosePanel(UIConst.quitMessagePanel);
     }
+
+    
 }

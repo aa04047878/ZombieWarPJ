@@ -11,7 +11,6 @@ public class MainMenuPanel : BasePanel
     private TMP_Text txtUserName;
     private TMP_Text txtSmallLevel;
     private Button btnSetting;
-    private Button btnQuit;
     protected override void Awake()
     {
         base.Awake();
@@ -20,7 +19,6 @@ public class MainMenuPanel : BasePanel
         txtSmallLevel = UITool.GetUIComponent<TMP_Text>(this.gameObject, "TxtSmallLevel");
         BtnAdventure = UITool.GetUIComponent<Button>(this.gameObject, "BtnAdventure");
         btnSetting = UITool.GetUIComponent<Button>(gameObject, "BtnSetting");
-        btnQuit = UITool.GetUIComponent<Button>(gameObject, "BtnQuit");
     }
 
     protected override void Start()
@@ -31,12 +29,11 @@ public class MainMenuPanel : BasePanel
         btnChangeUserName.onClick.AddListener(() => OnBtnChangeUser());
         BtnAdventure.onClick.AddListener(() => OnBtnAdventure());
         btnSetting.onClick.AddListener(() => OnBtnSetting());
-        btnQuit.onClick.AddListener(() => OnBtnQuit());
         //訂閱事件
         EventCenter.Instance.AddEventListener<UserData>(EventType.eventNewUserCreate, OnEventNewUserCreate);
         EventCenter.Instance.AddEventListener<string>(EventType.eventCurUserChange, OnEventCurUserChange);
 
-        //是否建立新用戶(為何無法建立新用戶???)
+        //是否建立新用戶
         if (BaseManager.Instance.curUserName.Trim() == "")
         {
             BaseUIManager.Instance.OpenPanel(UIConst.newUserPanel);
@@ -79,11 +76,6 @@ public class MainMenuPanel : BasePanel
     private void OnBtnSetting()
     {
         BaseUIManager.Instance.OpenPanel(UIConst.settingPanel);
-    }
-
-    private void OnBtnQuit()
-    {
-        BaseUIManager.Instance.OpenPanel(UIConst.quitMessagePanel);
     }
 
     private void OnEventNewUserCreate(UserData userData)

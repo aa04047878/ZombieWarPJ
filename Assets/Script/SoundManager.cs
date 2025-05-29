@@ -22,7 +22,9 @@ public class SoundManager : MonoBehaviour
 
     private void Start()
     {
-      
+        //取得音效資料
+        AudioData audioData = LocalConfig.LoadAudioData();
+        SetVolume(audioData.bgmVolume);
     }
     
     /// <summary>
@@ -54,12 +56,13 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <param name="name"></param>
     /// <param name="value"></param>
-    public void PlayBGM(string name, float value = 0.1f)
+    public void PlayBGM(string name)
     {
+        float volume = GetVolume();
         audioSource.Stop();
         audioSource.clip = GetAudio(name);
         audioSource.Play();
-        audioSource.volume = value;
+        audioSource.volume = volume;
     }
 
     public void StopBGM()
@@ -70,11 +73,12 @@ public class SoundManager : MonoBehaviour
     /// <summary>
     /// 播放音效(可疊加)
     /// </summary>
-    public void PlaySound(string path, float value = 0.1f)
+    public void PlaySound(string path)
     {
+        float Volume = GetVolume();
         //PlayOneShot，多個音效憶起播放
-        audioSource.PlayOneShot(GetAudio(path), value);
-        audioSource.volume = value;
+        audioSource.PlayOneShot(GetAudio(path), Volume);
+        audioSource.volume = Volume;
     }
 
     public void SetVolume(float volume)

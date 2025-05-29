@@ -16,13 +16,18 @@ public class LocalConfig : MonoBehaviour
     */
     #endregion
 
+    #region 資料緩存區
     /// <summary>
     /// 資料緩存字典(key : 用戶名, value : 用戶數據)
     /// </summary>
     public static Dictionary<string, UserData> userDataDic = new Dictionary<string, UserData>();
 
     public static ClientData clientData;
+    public static AudioData audioData;
+    #endregion
 
+
+    #region UserData部分
     /// <summary>
     /// 儲存資料
     /// </summary>
@@ -138,6 +143,9 @@ public class LocalConfig : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region ClientData部分
     public static void SaveClientData(ClientData data)
     {
         clientData = data;
@@ -175,4 +183,47 @@ public class LocalConfig : MonoBehaviour
             return clientData;
         }
     }
+
+    #endregion
+
+    #region Audiodata部分
+    public static void SaveAudioData(AudioData data)
+    {
+        audioData = data;
+        //把資料轉換成Json格式
+        string jsonData = JsonConvert.SerializeObject(audioData);
+        //將Json格式的資料寫入文件
+        File.WriteAllText(Application.persistentDataPath + "/audioData.json", jsonData);
+    }
+
+    public static AudioData LoadAudioData()
+    {
+        //讀取資料之前先判斷資料是否已經存在於緩存中(優化1)，已存在直接從緩存中讀取資料即可
+        if (audioData != null)
+        {
+            return audioData;
+        }
+
+        //資料路徑
+        string path = Application.persistentDataPath + "/audioData.json";
+        //檢查路徑裡是否有檔案
+        if (File.Exists(path))
+        {
+            //從此路徑中讀取所有資料
+            string jsonData = File.ReadAllText(path);
+            //將Json格式的資料轉換成玩家資料(用戶的內存數據)
+            AudioData audioData = JsonConvert.DeserializeObject<AudioData>(jsonData);
+            return audioData;
+        }
+        else
+        {
+            //沒資料就新增一個
+            AudioData audioData = new AudioData();
+            //先存檔於本地端
+            string jsonData = JsonConvert.SerializeObject(audioData);
+            File.WriteAllText(Application.persistentDataPath + "/audioData.json", jsonData);
+            return audioData;
+        }
+    }
+    #endregion
 }
