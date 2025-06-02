@@ -31,7 +31,7 @@ public class SceneControl : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         if (SceneManager.GetActiveScene().name == "Loading")
         {
-            SoundManager.instance.PlayBGM(Globals.BGM2);
+            SoundManager.instance.PlayBGM(Globals.LoadingMusic);
         
         }
     }
@@ -78,7 +78,7 @@ public class SceneControl : MonoBehaviour
         {
             case "Loading":
                 FadeManager.instance.SetParent("Canvas");
-                SoundManager.instance.PlayBGM(Globals.BGM2);
+                SoundManager.instance.PlayBGM(Globals.LoadingMusic);
                 break;
             case "Menu":
                 // 在這裡處理 Menu 場景的載入完成邏輯
@@ -86,7 +86,7 @@ public class SceneControl : MonoBehaviour
                 BaseUIManager.Instance.OpenPanel(UIConst.mainMenuPanel);
                 FadeManager.instance.SetParent("Canvas");
                 FadeManager.instance.FadeOut();
-                SoundManager.instance.PlayBGM(Globals.BGM5);
+                SoundManager.instance.PlayBGM(Globals.MainMenuMusic);
                 break;
             case "Game":
                 // 在這裡處理 Game 場景的載入完成邏輯

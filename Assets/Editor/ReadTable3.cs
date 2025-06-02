@@ -32,7 +32,7 @@ public class CreateTable3
         // 使用 EPPlus 開啟 Excel 文件，讀取Excel資料
         using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
         {
-            // 獲取名為 "殭屍" 的工作表
+            // 獲取名為 "Level3" 的工作表
             ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets["Level3"];
             // 遍歷工作表的有效行範圍（跳過前兩行，因為它可能是標題）
             for (int i = worksheet.Dimension.Start.Row + 2; i <= worksheet.Dimension.End.Row; i++)

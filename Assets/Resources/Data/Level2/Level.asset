@@ -18,19 +18,19 @@ MonoBehaviour:
     progressId: 1
     createTime: 0
     zombieType: 1
-    bornPos: 0
+    bornPos: 2
   - id: 2
     levelId: 2
     progressId: 1
     createTime: 2
     zombieType: 1
-    bornPos: 1
+    bornPos: 3
   - id: 3
     levelId: 2
     progressId: 1
     createTime: 4
     zombieType: 1
-    bornPos: 2
+    bornPos: 4
   - id: 4
     levelId: 2
     progressId: 1
@@ -42,166 +42,112 @@ MonoBehaviour:
     progressId: 1
     createTime: 9
     zombieType: 1
-    bornPos: 4
+    bornPos: 2
   - id: 6
     levelId: 2
-    progressId: 1
-    createTime: 11
+    progressId: 2
+    createTime: 3
     zombieType: 1
-    bornPos: 1
+    bornPos: 2
   - id: 7
     levelId: 2
-    progressId: 1
-    createTime: 13
+    progressId: 2
+    createTime: 5
     zombieType: 1
-    bornPos: 0
+    bornPos: 3
   - id: 8
     levelId: 2
-    progressId: 1
-    createTime: 15
+    progressId: 2
+    createTime: 9
     zombieType: 1
     bornPos: 4
   - id: 9
     levelId: 2
     progressId: 2
-    createTime: 3
+    createTime: 9
     zombieType: 1
     bornPos: 4
   - id: 10
     levelId: 2
     progressId: 2
-    createTime: 5
-    zombieType: 1
-    bornPos: 3
-  - id: 11
-    levelId: 2
-    progressId: 2
-    createTime: 9
-    zombieType: 1
-    bornPos: 2
-  - id: 12
-    levelId: 2
-    progressId: 2
-    createTime: 9
-    zombieType: 1
-    bornPos: 1
-  - id: 13
-    levelId: 2
-    progressId: 2
     createTime: 13
     zombieType: 1
-    bornPos: 0
-  - id: 14
+    bornPos: 2
+  - id: 11
     levelId: 2
     progressId: 2
     createTime: 16
     zombieType: 1
-    bornPos: 1
-  - id: 15
+    bornPos: 3
+  - id: 12
     levelId: 2
     progressId: 2
     createTime: 19
     zombieType: 1
     bornPos: 2
-  - id: 16
-    levelId: 2
-    progressId: 2
-    createTime: 20
-    zombieType: 1
-    bornPos: 3
-  - id: 17
-    levelId: 2
-    progressId: 2
-    createTime: 21
-    zombieType: 1
-    bornPos: 4
-  - id: 18
+  - id: 13
     levelId: 2
     progressId: 3
     createTime: 3
     zombieType: 1
-    bornPos: 1
-  - id: 19
+    bornPos: 2
+  - id: 14
     levelId: 2
     progressId: 3
     createTime: 4
     zombieType: 1
-    bornPos: 2
-  - id: 20
+    bornPos: 3
+  - id: 15
     levelId: 2
     progressId: 3
     createTime: 5
     zombieType: 1
-    bornPos: 3
-  - id: 21
+    bornPos: 4
+  - id: 16
     levelId: 2
     progressId: 3
     createTime: 6
     zombieType: 1
     bornPos: 4
-  - id: 22
+  - id: 17
     levelId: 2
     progressId: 3
     createTime: 7
     zombieType: 1
-    bornPos: 2
-  - id: 23
+    bornPos: 3
+  - id: 18
     levelId: 2
     progressId: 3
     createTime: 8
     zombieType: 1
-    bornPos: 3
-  - id: 24
+    bornPos: 2
+  - id: 19
     levelId: 2
     progressId: 3
     createTime: 9
     zombieType: 1
     bornPos: 4
-  - id: 25
+  - id: 20
     levelId: 2
     progressId: 3
     createTime: 10
     zombieType: 1
-    bornPos: 1
-  - id: 26
+    bornPos: 3
+  - id: 21
     levelId: 2
     progressId: 3
     createTime: 11
     zombieType: 1
-    bornPos: 2
-  - id: 27
+    bornPos: 3
+  - id: 22
     levelId: 2
     progressId: 3
     createTime: 12
     zombieType: 1
-    bornPos: 3
-  - id: 28
+    bornPos: 4
+  - id: 23
     levelId: 2
     progressId: 3
     createTime: 13
     zombieType: 1
-    bornPos: 4
-  - id: 29
-    levelId: 2
-    progressId: 3
-    createTime: 14
-    zombieType: 1
-    bornPos: 3
-  - id: 30
-    levelId: 2
-    progressId: 3
-    createTime: 15
-    zombieType: 1
     bornPos: 2
-  - id: 31
-    levelId: 2
-    progressId: 3
-    createTime: 16
-    zombieType: 1
-    bornPos: 1
-  - id: 32
-    levelId: 2
-    progressId: 3
-    createTime: 16
-    zombieType: 1
-    bornPos: 1

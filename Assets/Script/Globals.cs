@@ -11,6 +11,9 @@ public class Globals
     public const string BGM4 = "Audio/Music/bgm4";
     public const string BGM5 = "Audio/Music/bgm5";
     public const string BGM6 = "Audio/Music/ThemeSong";
+    public const string LoadingMusic = "Audio/Music/LoadingMusic";
+    public const string MainMenuMusic = "Audio/Music/MainMenuMusic";
+    public const string BattleMusic = "Audio/Music/BattleMusic";
 
     /// <summary>
     /// 準備好開始

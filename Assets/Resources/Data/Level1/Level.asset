@@ -18,112 +18,88 @@ MonoBehaviour:
     progressId: 1
     createTime: 0
     zombieType: 1
-    bornPos: 0
+    bornPos: 2
   - id: 2
     levelId: 1
     progressId: 1
     createTime: 2
     zombieType: 1
-    bornPos: 1
+    bornPos: 3
   - id: 3
     levelId: 1
     progressId: 1
     createTime: 4
     zombieType: 1
-    bornPos: 2
+    bornPos: 4
   - id: 4
-    levelId: 1
-    progressId: 1
-    createTime: 7
-    zombieType: 1
-    bornPos: 3
-  - id: 5
     levelId: 1
     progressId: 2
     createTime: 2
     zombieType: 1
     bornPos: 4
-  - id: 6
+  - id: 5
     levelId: 1
     progressId: 2
     createTime: 6
     zombieType: 1
     bornPos: 3
-  - id: 7
+  - id: 6
     levelId: 1
     progressId: 2
     createTime: 10
     zombieType: 1
     bornPos: 2
-  - id: 8
+  - id: 7
     levelId: 1
     progressId: 2
     createTime: 14
     zombieType: 1
-    bornPos: 1
-  - id: 9
+    bornPos: 3
+  - id: 8
     levelId: 1
     progressId: 3
     createTime: 1
     zombieType: 1
-    bornPos: 1
-  - id: 10
+    bornPos: 2
+  - id: 9
     levelId: 1
     progressId: 3
     createTime: 4
     zombieType: 1
-    bornPos: 2
-  - id: 11
+    bornPos: 3
+  - id: 10
     levelId: 1
     progressId: 3
     createTime: 7
     zombieType: 1
-    bornPos: 3
-  - id: 12
+    bornPos: 4
+  - id: 11
     levelId: 1
     progressId: 3
     createTime: 10
     zombieType: 1
-    bornPos: 4
-  - id: 13
+    bornPos: 2
+  - id: 12
     levelId: 1
     progressId: 3
     createTime: 13
     zombieType: 1
-    bornPos: 2
-  - id: 14
+    bornPos: 3
+  - id: 13
     levelId: 1
     progressId: 3
     createTime: 16
     zombieType: 1
-    bornPos: 3
-  - id: 15
+    bornPos: 4
+  - id: 14
     levelId: 1
     progressId: 3
     createTime: 19
     zombieType: 1
     bornPos: 4
-  - id: 16
+  - id: 15
     levelId: 1
     progressId: 3
     createTime: 22
     zombieType: 1
-    bornPos: 1
-  - id: 17
-    levelId: 1
-    progressId: 3
-    createTime: 25
-    zombieType: 1
     bornPos: 2
-  - id: 18
-    levelId: 1
-    progressId: 3
-    createTime: 28
-    zombieType: 1
-    bornPos: 3
-  - id: 19
-    levelId: 1
-    progressId: 3
-    createTime: 31
-    zombieType: 1
-    bornPos: 4

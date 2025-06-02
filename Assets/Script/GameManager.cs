@@ -371,7 +371,7 @@ public class GameManager : MonoBehaviour
         
         TableCreateZombie();
         InvokeRepeating("CreateSunDown", 3, 3);
-        SoundManager.instance.PlayBGM(Globals.BGM1);
+        SoundManager.instance.PlayBGM(Globals.BattleMusic);
     }
 
     /// <summary>
