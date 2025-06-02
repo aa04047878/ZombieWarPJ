@@ -76,6 +76,7 @@ public class UserPanel : BasePanel
             BasePanel basePanel =  BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
             promptMessagePanel.SetMessageText("請選擇用戶");
+            //Debug.Log("測試");
             //promptMessagePanel.txtTitle.text = "請選擇用戶";
         }
     }
@@ -88,6 +89,7 @@ public class UserPanel : BasePanel
             BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
             promptMessagePanel.SetMessageText("請選擇用戶");
+            //Debug.Log("測試");
             //promptMessagePanel.txtTitle.text = "請選擇用戶";
             return;
         }

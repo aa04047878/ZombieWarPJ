@@ -29,5 +29,6 @@ public class PromptMessagePanel : BasePanel
     public void SetMessageText(string newMessage)
     {
         txtTitle.text = newMessage;
+        Debug.Log(newMessage);
     }
 }
