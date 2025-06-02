@@ -36,16 +36,18 @@ public class NewUserPanel : BasePanel
             BasePanel panel =  BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = panel as PromptMessagePanel;
             promptMessagePanel.SetMessageText("請輸入名子，謝謝!!!");
+            promptMessagePanel.SetUpTitleText("新用戶");
             return;
         }
 
         //檢查用戶名稱是否已存在
         if (LocalConfig.LoadUserData(inputString) != null)
         {
-            Debug.Log("用戶名稱已存在");
+            Debug.Log("用戶名稱已存在!!!");
             BasePanel panel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = panel as PromptMessagePanel;
-            promptMessagePanel.SetMessageText("用戶名稱已存在");
+            promptMessagePanel.SetMessageText("用戶名稱已存在!!!");
+            promptMessagePanel.SetUpTitleText("新用戶");
             return;
         }
 
@@ -67,6 +69,7 @@ public class NewUserPanel : BasePanel
             BasePanel panel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = panel as PromptMessagePanel;
             promptMessagePanel.SetMessageText("請輸入名子，謝謝!!!");
+            promptMessagePanel.SetUpTitleText("新用戶");
             return;
         }
 

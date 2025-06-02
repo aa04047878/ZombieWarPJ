@@ -72,10 +72,11 @@ public class UserPanel : BasePanel
         }
         else
         {
-            Debug.Log("請選擇用戶");
+            Debug.Log("請選擇用戶!!!");
             BasePanel basePanel =  BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
-            promptMessagePanel.SetMessageText("請選擇用戶");
+            promptMessagePanel.SetMessageText("請選擇用戶!!!");
+            promptMessagePanel.SetUpTitleText("選擇使用者");
             //Debug.Log("測試");
             //promptMessagePanel.txtTitle.text = "請選擇用戶";
         }
@@ -85,10 +86,11 @@ public class UserPanel : BasePanel
     {
         if (BaseManager.Instance.curUserName == "")
         {
-            Debug.Log("請選擇用戶");
+            Debug.Log("請選擇用戶!!!");
             BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
-            promptMessagePanel.SetMessageText("請選擇用戶");
+            promptMessagePanel.SetMessageText("請選擇用戶!!!");
+            promptMessagePanel.SetUpTitleText("選擇使用者");
             //Debug.Log("測試");
             //promptMessagePanel.txtTitle.text = "請選擇用戶";
             return;
@@ -102,10 +104,11 @@ public class UserPanel : BasePanel
         //沒選擇用戶就不刪除
         if (curUserName == "")
         {
-            Debug.Log("請選擇要刪除的用戶");
+            Debug.Log("請選擇要刪除的用戶!!!");
             BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
-            promptMessagePanel.SetMessageText("請選擇要刪除的用戶");
+            promptMessagePanel.SetMessageText("請選擇要刪除的用戶!!!");
+            promptMessagePanel.SetUpTitleText("選擇使用者");
             //promptMessagePanel.txtTitle.text = "請選擇要刪除的用戶";
             return;
         }
@@ -131,10 +134,11 @@ public class UserPanel : BasePanel
     {
         if (curUserName == "")
         {
-            Debug.Log("請選擇要變更名子的用戶");
+            Debug.Log("請選擇要變更名子的用戶!!!");
             BasePanel basePanel = BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = basePanel as PromptMessagePanel;
-            promptMessagePanel.SetMessageText("請選擇要變更名子的用戶");
+            promptMessagePanel.SetMessageText("請選擇要變更名子的用戶!!!");
+            promptMessagePanel.SetUpTitleText("選擇使用者");
             //promptMessagePanel.txtTitle.text = "請選擇要變更名子的用戶";
             return;
         }

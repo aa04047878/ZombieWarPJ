@@ -65,6 +65,7 @@ public class MainMenuPanel : BasePanel
             BasePanel panel =  BaseUIManager.Instance.OpenPanel(UIConst.promptMessagePanel);
             PromptMessagePanel promptMessagePanel = panel.GetComponent<PromptMessagePanel>();
             promptMessagePanel.SetMessageText("目前只開放到第3關，敬請期待下次更新，謝謝!!!");
+            promptMessagePanel.SetUpTitleText("訊息");
             return;
         }
         SceneControl.LoadSceneAsync("Game");
