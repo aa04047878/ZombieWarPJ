@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -65,6 +66,12 @@ public class GameManager : MonoBehaviour
     public GameObject failPanelObj;
     #endregion
 
+    #region 設定相關
+    public Button btnSetting;
+    public Canvas canvas;
+    #endregion
+
+    
     // Start is called before the first frame update
 
     private void Awake()
@@ -103,6 +110,7 @@ public class GameManager : MonoBehaviour
         ClickSun();
     }
 
+    #region 遊戲主邏輯相關
     public void AddIdList(int id)
     {
         dieZombieIdList.Add(id);
@@ -122,8 +130,6 @@ public class GameManager : MonoBehaviour
         //更新UI
         UIManager.instance.UpdateUI();
     }
-
-   
 
     /// <summary>
     /// 從表格創造殭屍
@@ -326,6 +332,39 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 太陽落下(協程)
+    /// </summary>
+    IEnumerator CoCreateSunDown()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(3f);
+            //讀取螢幕左下角和右上角的座標
+            Vector3 leftBottom = Camera.main.ViewportToWorldPoint(Vector2.zero);
+            Vector3 rightTop = Camera.main.ViewportToWorldPoint(Vector2.one);
+
+            //讀取sun預置物
+            GameObject sunPre = Resources.Load<GameObject>("Prefab/Sun");
+
+            //初始化太陽的位置
+            float x = Random.Range(leftBottom.x + 30, rightTop.x - 30);
+            Vector3 bornPos = new Vector3(x, rightTop.y, 0);
+            float y = Random.Range(leftBottom.y + 80, leftBottom.y + 30);
+
+            //生成太陽
+            //GameObject sun = Instantiate(sunPre, bornPos, Quaternion.identity);
+            Sun sun = sunPool.Spawn(bornPos, Quaternion.identity);
+            sun.ResetTimer();
+            //Debug.Log("生成太陽");
+
+            //設定太陽的位置
+            //sun.GetComponent<Sun>().SetTargetPos(new Vector3(bornPos.x, y, 0));
+            sun.SetTargetPos(new Vector3(bornPos.x, y, 0));
+            //Debug.Log("已設定好太陽位置");
+        }
+    }
+
+    /// <summary>
     /// 讀取表格
     /// </summary>
     /// <returns></returns>
@@ -370,7 +409,8 @@ public class GameManager : MonoBehaviour
         //sunNum = 0;
         
         TableCreateZombie();
-        InvokeRepeating("CreateSunDown", 3, 3);
+        //InvokeRepeating("CreateSunDown", 3, 3);
+        StartCoroutine(CoCreateSunDown());
         SoundManager.instance.PlayBGM(Globals.BattleMusic);
     }
 
@@ -417,4 +457,39 @@ public class GameManager : MonoBehaviour
         failPanelObj.SetActive(true);
         TimeManager.PauseGame();
     }
+    #endregion
+
+    #region 設定相關
+    public void OpenCanvasSetting()
+    {
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            TimeManager.PauseGame();
+        }
+
+        CanvasScaler canvasScaler = canvas.GetComponent<CanvasScaler>();
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        //canvasScaler.referenceResolution = new Vector2(800, 600);
+    }
+
+    public void CloseCanvasSetting()
+    {
+        if (SceneManager.GetActiveScene().name == "Menu")
+            return;
+
+        Debug.Log("關閉Canvas設定");
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            canvas.renderMode = RenderMode.WorldSpace;
+            canvas.transform.position = new Vector3(0, 0, 0); //調整位置
+            RectTransform rectTransform = canvas.GetComponent<RectTransform>();            
+            rectTransform.sizeDelta = new Vector2(1075.6f, 601.2f); //調整寬高
+            rectTransform.localScale = new Vector3(1, 1, 1); //調整縮放
+            TimeManager.ResumeGame();
+        }
+        CanvasScaler canvasScaler = canvas.GetComponent<CanvasScaler>();
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;        
+    }
+    #endregion
 }

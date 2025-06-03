@@ -47,6 +47,7 @@ public class SettingPanel : BasePanel
     private void OnBtnBack()
     {
         BaseUIManager.Instance.ClosePanel(UIConst.settingPanel);
+        GameManager.instance.CloseCanvasSetting();
     }
 
     private void OnBtnQuit()
