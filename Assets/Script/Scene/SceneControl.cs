@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneControl : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class SceneControl : MonoBehaviour
     }
 
     public static AsyncOperation operation;
+    
     private void Awake()
     {
         //FadeManager.instance.SetParent("Canvas");
@@ -32,7 +34,13 @@ public class SceneControl : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Loading")
         {
             SoundManager.instance.PlayBGM(Globals.LoadingMusic);
-        
+            GameManager.instance.canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            GameManager.instance.btnSetting = GameObject.Find("BtnSetting").GetComponent<UnityEngine.UI.Button>();
+            //GameManager.instance.btnSetting.onClick.AddListener(() => BaseUIManager.Instance.OpenPanel(UIConst.settingPanel));
+            GameManager.instance.btnSetting.onClick.AddListener(delegate () {
+                BaseUIManager.Instance.OpenPanel(UIConst.settingPanel);
+                GameManager.instance.OpenCanvasSetting();
+            });
         }
     }
 
@@ -105,10 +113,18 @@ public class SceneControl : MonoBehaviour
                 GameManager.instance.failPanelObj = Instantiate(GameManager.instance.failPanelPre);
                 GameManager.instance.failPanelObj.SetActive(false);
                 StartCoroutine(GameManager.instance.CoLoadTable());
+                GameManager.instance.canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+                GameManager.instance.btnSetting = GameObject.Find("BtnSetting").GetComponent<UnityEngine.UI.Button>();
+                //GameManager.instance.btnSetting.onClick.AddListener(() => BaseUIManager.Instance.OpenPanel(UIConst.settingPanel));
+                GameManager.instance.btnSetting.onClick.AddListener(delegate () {
+                    BaseUIManager.Instance.OpenPanel(UIConst.settingPanel);
+                    GameManager.instance.OpenCanvasSetting();
+                });
                 break;
             default:
                 break;
         }
     }
 
+   
 }

@@ -42,7 +42,7 @@ public class Sun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (targetPos != Vector3.zero && Vector3.Distance(targetPos, transform.position) > 0.1f)
+        if (targetPos != Vector3.zero && Vector3.Distance(targetPos, transform.position) > 0.1f && !TimeManager.IsGamePaused())
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, 1);
             return;
