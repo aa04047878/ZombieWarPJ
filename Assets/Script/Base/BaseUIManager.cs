@@ -73,6 +73,7 @@ public class BaseUIManager
             {UIConst.promptMessagePanel, "Menu/PromptMessagePanel"},
             {UIConst.settingPanel, "Menu/SettingPanel"},
             {UIConst.quitMessagePanel, "Menu/QuitMessagePanel"},
+            {UIConst.stagePanel, "Menu/StagePanel"},
             
         };
     }
@@ -161,6 +162,7 @@ public class UIConst
     /// Â÷¶}°T®§¤¶­±
     /// </summary>
     public const string quitMessagePanel = "QuitMessagePanel";
+    public const string stagePanel = "StagePanel";
     
 }
 

@@ -11,6 +11,8 @@ public class MainMenuPanel : BasePanel
     private TMP_Text txtUserName;
     private TMP_Text txtSmallLevel;
     private Button btnSetting;
+    public Image stageCharacter;
+    private Button btnStage;
     protected override void Awake()
     {
         base.Awake();
@@ -19,6 +21,7 @@ public class MainMenuPanel : BasePanel
         txtSmallLevel = UITool.GetUIComponent<TMP_Text>(this.gameObject, "TxtSmallLevel");
         BtnAdventure = UITool.GetUIComponent<Button>(this.gameObject, "BtnAdventure");
         btnSetting = UITool.GetUIComponent<Button>(gameObject, "BtnSetting");
+        btnStage = UITool.GetUIComponent<Button>(gameObject, "BtnStage");
     }
 
     protected override void Start()
@@ -29,6 +32,7 @@ public class MainMenuPanel : BasePanel
         btnChangeUserName.onClick.AddListener(() => OnBtnChangeUser());
         BtnAdventure.onClick.AddListener(() => OnBtnAdventure());
         btnSetting.onClick.AddListener(() => OnBtnSetting());
+        btnStage.onClick.AddListener(() => OnBtnStage());
         //­q¾\¨Æ¥ó
         EventCenter.Instance.AddEventListener<UserData>(EventType.eventNewUserCreate, OnEventNewUserCreate);
         EventCenter.Instance.AddEventListener<string>(EventType.eventCurUserChange, OnEventCurUserChange);
@@ -77,6 +81,11 @@ public class MainMenuPanel : BasePanel
     private void OnBtnSetting()
     {
         BaseUIManager.Instance.OpenPanel(UIConst.settingPanel);
+    }
+
+    private void OnBtnStage()
+    {
+        BaseUIManager.Instance.OpenPanel(UIConst.stagePanel);
     }
 
     private void OnEventNewUserCreate(UserData userData)

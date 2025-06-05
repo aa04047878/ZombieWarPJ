@@ -32,4 +32,18 @@ public class UITool : MonoBehaviour
         }
         return default;
     }
+
+    public static T GetParentComponent<T>(string parentName)
+    {
+        GameObject parent = GameObject.Find(parentName);
+        if (parent != null)
+        {
+            return parent.GetComponent<T>();
+        }
+        else
+        {
+            Debug.Log($"Parent GameObject '{parentName}' not found.");
+            return default;
+        }
+    }
 }

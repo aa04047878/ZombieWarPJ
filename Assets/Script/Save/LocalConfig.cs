@@ -24,6 +24,7 @@ public class LocalConfig : MonoBehaviour
 
     public static ClientData clientData;
     public static AudioData audioData;
+    public static StageData stageData;
     #endregion
 
 
@@ -186,7 +187,7 @@ public class LocalConfig : MonoBehaviour
 
     #endregion
 
-    #region Audiodata部分
+    #region AudioData部分
     public static void SaveAudioData(AudioData data)
     {
         audioData = data;
@@ -223,6 +224,47 @@ public class LocalConfig : MonoBehaviour
             string jsonData = JsonConvert.SerializeObject(audioData);
             File.WriteAllText(Application.persistentDataPath + "/audioData.json", jsonData);
             return audioData;
+        }
+    }
+    #endregion
+
+    #region StageData部分
+    public static void SaveStageData(StageData data)
+    {
+        stageData = data;
+        //把資料轉換成Json格式
+        string jsonData = JsonConvert.SerializeObject(stageData);
+        //將Json格式的資料寫入文件
+        File.WriteAllText(Application.persistentDataPath + "/stageData.json", jsonData);
+    }
+
+    public static StageData LoadStageData()
+    {
+        //讀取資料之前先判斷資料是否已經存在於緩存中(優化1)，已存在直接從緩存中讀取資料即可
+        if (stageData != null)
+        {
+            return stageData;
+        }
+
+        //資料路徑
+        string path = Application.persistentDataPath + "/stageData.json";
+        //檢查路徑裡是否有檔案
+        if (File.Exists(path))
+        {
+            //從此路徑中讀取所有資料
+            string jsonData = File.ReadAllText(path);
+            //將Json格式的資料轉換成玩家資料(用戶的內存數據)
+            StageData stageData = JsonConvert.DeserializeObject<StageData>(jsonData);
+            return stageData;
+        }
+        else
+        {
+            //沒資料就新增一個
+            StageData stageData = new StageData();
+            //先存檔於本地端
+            string jsonData = JsonConvert.SerializeObject(stageData);
+            File.WriteAllText(Application.persistentDataPath + "/stageData.json", jsonData);
+            return stageData;
         }
     }
     #endregion
