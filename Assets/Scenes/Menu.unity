@@ -142,6 +142,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 7110483429523280611, guid: a603f7623484d96488fdae8d796ecd25, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9059895337737438415, guid: a603f7623484d96488fdae8d796ecd25, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2128,7 +2132,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1037070236}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.8416666
+  m_Size: 0.84166664
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
