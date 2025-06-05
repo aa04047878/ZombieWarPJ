@@ -14,15 +14,24 @@ public class AvatarItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void Awake()
     {
-        parent = UITool.GetParentComponent<StagePanel>("StagePanel");
         selectFrame = UITool.GetUIComponent<Image>(this.gameObject, "SelectFrame");
         selectFrame.gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        parent = UITool.GetParentComponent<StagePanel>("StagePanel");
+        if (parent != null)
+            Debug.Log("¦³parent");
+        else
+            Debug.Log("¨S¦³parent");
+        parent.AddStageItemDic(id, this);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -36,7 +45,7 @@ public class AvatarItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //isSelected = !isSelected;
         parent.curItemId = id; 
         parent.stageCharacterPreview.sprite = character;
-        parent.AddStageItemDic(id, this);
+        
         // Handle selection logic here
         //Debug.Log($"AvatarItem {id} selected.");
     }

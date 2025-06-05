@@ -25,12 +25,14 @@ public class StagePanel : BasePanel
     protected override void Awake()
     {
         base.Awake();
+        transform.name = "StagePanel";
         stageItemSpriteDic = new Dictionary<int, string>();
-        stageItemSpriteDic.Add(1, Globals.PeashooterAllbody);
-        stageItemSpriteDic.Add(2, Globals.SunflowerAllbody);
-        stageItemSpriteDic.Add(3, Globals.WallNutAllbody);
+        stageItemSpriteDic.Add(0, Globals.PeashooterAllbody);
+        stageItemSpriteDic.Add(1, Globals.SunflowerAllbody);
+        stageItemSpriteDic.Add(2, Globals.WallNutAllbody);
         stageItemSpriteDic.Add(4, Globals.SquashAllbody);
         stageItemSpriteDic.Add(5, Globals.PurpleMushroomAllbody);
+        stageItemDic = new Dictionary<int, AvatarItem>();
         btnOk = UITool.GetUIComponent<Button>(this.gameObject, "BtnOk");
         btnBack = UITool.GetUIComponent<Button>(this.gameObject, "BtnBack");
     }
@@ -43,7 +45,7 @@ public class StagePanel : BasePanel
         //取得舞台資料
         StageData stageData = LocalConfig.LoadStageData();
         //設定舞台角色圖片
-        spriteData = GetStageCharacter(stageData.id); // Example to get the spriteData for Peashooter
+        spriteData = GetStageCharacterData(stageData.id); // Example to get the spriteData for Peashooter
         stageCharacterPreview.sprite = spriteData;
         curItemId = stageData.id; // 從儲存檔案裡取得ID來設定
     }
@@ -53,7 +55,7 @@ public class StagePanel : BasePanel
         base.Update();
     }
 
-    public Sprite GetStageCharacter(int id)
+    public Sprite GetStageCharacterData(int id)
     {
         if (stageItemSpriteDic.ContainsKey(id))
         {
@@ -68,7 +70,8 @@ public class StagePanel : BasePanel
 
     public void AddStageItemDic(int id, AvatarItem avatarItem)
     {
-        stageItemDic[id] = avatarItem;
+        //stageItemDic[id] = avatarItem;
+        stageItemDic.Add(id, avatarItem);
     }
 
     /// <summary>
@@ -88,7 +91,9 @@ public class StagePanel : BasePanel
         StageData stageData = LocalConfig.LoadStageData();
         stageData.id = id;
         LocalConfig.SaveStageData(stageData);
-        BaseUIManager.Instance.ClosePanel(UIConst.stagePanel);
+        //變更MainMenuPanel的舞台角色
+        EventCenter.Instance.EventTrigger(EventType.eventChangeStageCharacter, id);
+
     }
 
     private void OnBtnBack()

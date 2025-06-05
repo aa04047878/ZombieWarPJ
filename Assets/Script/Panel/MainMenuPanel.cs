@@ -11,8 +11,14 @@ public class MainMenuPanel : BasePanel
     private TMP_Text txtUserName;
     private TMP_Text txtSmallLevel;
     private Button btnSetting;
+
+    #region 舞台
     public Image stageCharacter;
+    public Sprite spriteData;
     private Button btnStage;
+    private Dictionary<int, string> stageItemSpriteDic;
+    #endregion
+
     protected override void Awake()
     {
         base.Awake();
@@ -22,6 +28,13 @@ public class MainMenuPanel : BasePanel
         BtnAdventure = UITool.GetUIComponent<Button>(this.gameObject, "BtnAdventure");
         btnSetting = UITool.GetUIComponent<Button>(gameObject, "BtnSetting");
         btnStage = UITool.GetUIComponent<Button>(gameObject, "BtnStage");
+
+        stageItemSpriteDic = new Dictionary<int, string>();
+        stageItemSpriteDic.Add(0, Globals.PeashooterAllbody);
+        stageItemSpriteDic.Add(1, Globals.SunflowerAllbody);
+        stageItemSpriteDic.Add(2, Globals.WallNutAllbody);
+        stageItemSpriteDic.Add(4, Globals.SquashAllbody);
+        stageItemSpriteDic.Add(5, Globals.PurpleMushroomAllbody);
     }
 
     protected override void Start()
@@ -36,6 +49,7 @@ public class MainMenuPanel : BasePanel
         //訂閱事件
         EventCenter.Instance.AddEventListener<UserData>(EventType.eventNewUserCreate, OnEventNewUserCreate);
         EventCenter.Instance.AddEventListener<string>(EventType.eventCurUserChange, OnEventCurUserChange);
+        EventCenter.Instance.AddEventListener<int>(EventType.eventChangeStageCharacter, SetStageCharacter);
 
         //是否建立新用戶
         if (BaseManager.Instance.curUserName.Trim() == "")
@@ -51,7 +65,11 @@ public class MainMenuPanel : BasePanel
             txtUserName.text = userData.name;
             txtSmallLevel.text = userData.level.ToString();
         }
-        
+
+        //讀取舞台角色資料
+        StageData stageData = LocalConfig.LoadStageData();
+        spriteData = GetStageCharacterData(stageData.id); // Example to get the spriteData for Peashooter
+        stageCharacter.sprite = spriteData;
     }
 
     private void OnBtnChangeUser()
@@ -105,5 +123,31 @@ public class MainMenuPanel : BasePanel
         }
         
         txtSmallLevel.text = LocalConfig.LoadUserData(curName).level.ToString();
+    }
+
+    public Sprite GetStageCharacterData(int id)
+    {
+        if (stageItemSpriteDic.ContainsKey(id))
+        {
+            return Resources.Load<Sprite>(stageItemSpriteDic[id]);
+        }
+        else
+        {
+            Debug.Log("Stage character not found for id: " + id);
+            return null;
+        }
+    }
+
+    public void SetStageCharacter(int id)
+    {
+        if (stageItemSpriteDic.ContainsKey(id))
+        {
+            spriteData =  Resources.Load<Sprite>(stageItemSpriteDic[id]);
+            stageCharacter.sprite = spriteData;
+        }
+        else
+        {
+            Debug.Log("Stage character not found for id: " + id);
+        }
     }
 }

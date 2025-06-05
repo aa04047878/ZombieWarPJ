@@ -174,6 +174,9 @@ public class EventType
     /// 遊戲失敗事件
     /// </summary>
     public const string eventGameFail = "EventGameFail";
-
+    /// <summary>
+    /// 變更舞台角色事件
+    /// </summary>
+    public const string eventChangeStageCharacter = "EventChangeStageCharacter";
 }
 
