@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneAniDark : MonoBehaviour
 {
@@ -22,7 +23,14 @@ public class SceneAniDark : MonoBehaviour
     public void OnEventDarkAni()
     {
         FadeManager.instance.darkBgObj.SetActive(true);
-        BaseUIManager.Instance.ClosePanel(UIConst.mainMenuPanel);
-        operation.allowSceneActivation = true;
+        if (SceneManager.GetActiveScene().name == "Menu")
+        {
+            BaseUIManager.Instance.ClosePanel(UIConst.mainMenuPanel);
+        }
+                
+        if (operation != null)
+            operation.allowSceneActivation = true;
+        else
+            SceneControl.LoadScene("Menu");
     }
 }

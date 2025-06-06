@@ -487,9 +487,11 @@ public class GameManager : MonoBehaviour
             rectTransform.sizeDelta = new Vector2(1075.6f, 601.2f); //調整寬高
             rectTransform.localScale = new Vector3(1, 1, 1); //調整縮放
             TimeManager.ResumeGame();
+            CanvasScaler canvasScaler = canvas.GetComponent<CanvasScaler>();
+            canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
         }
-        CanvasScaler canvasScaler = canvas.GetComponent<CanvasScaler>();
-        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;        
+
+              
     }
     #endregion
 }

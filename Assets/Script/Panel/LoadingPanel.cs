@@ -35,7 +35,7 @@ public class LoadingPanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        really = true;
+        really = false;
         BtnStart.SetActive(false);
         BtnStart.GetComponent<Button>().onClick.AddListener(() => OnButtonStart());
         curProgress = 0;
@@ -80,7 +80,8 @@ public class LoadingPanel : MonoBehaviour
         if (!really)
         {
             //Âà´«³õ´º
-            SceneControl.LoadScene("Menu");
+            //SceneControl.LoadScene("Menu");
+            FadeManager.instance.FadeIn();
         }
         else
         {
